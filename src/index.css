@@ -65,9 +65,17 @@ body, html, .App, #root, .auth-wrapper {
 .forgot-password a {
   color: #167bff;
 }
-.slide-container {
-  text-align: 'center';
-  background: 'teal';
-  padding: '200px 0';
-  font-size: '30px';
+.slide-container {    
+  position: relative;
+  width: 600px;
+  height: 450px;
+  top: -80%;
+  right: -15%;
+} 
+.each-fade{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  height: 450px;
 }
