@@ -3,7 +3,10 @@
   box-sizing: border-box;
 }
 body {
-  background: #e52b50 !important;
+  background-image: url("./components/logo2.png") !important;
+  background-repeat: repeat;
+  background-color: #e52b50;
+  background-size: 19.6%;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -18,8 +21,8 @@ body, html, .App, #root, .auth-wrapper {
   height: 100%;
     
 }
-.navbar-light {
-  background-color: #901b32;
+.navbar-dark {
+  background-color: #610e19;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
 }
 .auth-wrapper {
@@ -31,10 +34,10 @@ body, html, .App, #root, .auth-wrapper {
 .auth-inner {
   width: 400px;
   margin: 60%;
-  background: #ebcfcf;
+  background: #f8eded;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-  padding: 80px 50px 80px 50px;
-  border-radius: 15px;
+  padding: 20px 50px 30px 50px;
+  border-radius: 40px;
   transition: all .3s;
   line-height: 2.8;
 }
@@ -62,8 +65,9 @@ body, html, .App, #root, .auth-wrapper {
 .forgot-password a {
   color: #167bff;
 }
-
-.logo{
-  transform: translate(-10px,-900px);
-  padding: 0%;
+.slide-container {
+  text-align: 'center';
+  background: 'teal';
+  padding: '200px 0';
+  font-size: '30px';
 }
