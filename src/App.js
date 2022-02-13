@@ -4,13 +4,9 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import 'react-slideshow-image/dist/styles.css';
-import { Fade } from "react-slideshow-image";
+import Dashboard from './components/Dashboard';
 
-const fadeImages = [
-  "images/benetton.jpg",
-  "images/happygirl.png",
-  "images/people.png"
-];
+
 
 function App() {
   return (
@@ -26,32 +22,21 @@ function App() {
               <li className="nav-item">
                 <Link className="nav-link" to={"/sign-up"}>Sign up</Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to={"/dashboard"}>Dashboard</Link>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
-      <div className="auth-wrapper">
-        <div className="auth-inner">
+
           <Routes>
             <Route exact path='/' element={<Login />} />
             <Route path="/sign-in" element={<Login />} />
             <Route path="/sign-up" element={<Signup />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
-        </div>
-      </div>
-      <div className="slide-container">
-      <Fade >
-        <div className="each-fade">
-          <img src={fadeImages[0]} />
-        </div>
-        <div className="each-fade">
-          <img src={fadeImages[1]} />
-        </div>
-        <div className="each-fade">
-          <img src={fadeImages[2]} />
-        </div>
-      </Fade>
-    </div>
+
     </div>
   );
 }
