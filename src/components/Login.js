@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import FadeSlide from "./FadeSlide";
+import CarouselSlide from "./CarouselSlide";
 export default class Login extends Component {
     render() {
         return (
@@ -29,7 +29,7 @@ export default class Login extends Component {
                     </form>
                 </div>
             </div><div className="slide-container">
-                    <FadeSlide />
+                    <CarouselSlide />
 
                 </div></>
         );

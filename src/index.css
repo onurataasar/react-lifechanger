@@ -67,8 +67,8 @@ body, html, .App, #root, .auth-wrapper {
 }
 .slide-container {    
   position: relative;
-  width: 600px;
-  height: 450px;
+/*   width: 600px;
+  height: 450px; */
   top: -80%;
   right: -15%;
 } 

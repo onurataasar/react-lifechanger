@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import FadeSlide from "./FadeSlide";
+import CarouselSlide from "./CarouselSlide";
 import { Link } from "react-router-dom";
 export default class SignUp extends Component {
     render() {
@@ -31,7 +31,7 @@ export default class SignUp extends Component {
                     </form>
                 </div>
             </div><div className="slide-container">
-                    <FadeSlide />
+                    <CarouselSlide />
                 </div></>
         );
     }
