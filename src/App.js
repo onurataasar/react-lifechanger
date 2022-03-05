@@ -5,13 +5,14 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import 'react-slideshow-image/dist/styles.css';
 import Dashboard from './components/Dashboard';
-
+import Navbar from './components/Navbar';
 
 
 function App() {
   return (
     <div className="App">
-      <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
+      {/*       <Navbar />
+ */}      {/*       <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
         <div className="container">
           <Link className="navbar-brand" to={"/sign-in"}>LifeChanger</Link>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
@@ -28,14 +29,14 @@ function App() {
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> */}
 
-          <Routes>
-            <Route exact path='/' element={<Login />} />
-            <Route path="/sign-in" element={<Login />} />
-            <Route path="/sign-up" element={<Signup />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Routes>
+      <Routes>
+        <Route exact path='/' element={<Login />} />
+        <Route path="/sign-in" element={<Login />} />
+        <Route path="/sign-up" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
 
     </div>
   );

@@ -21,6 +21,13 @@ body, html, .App, #root, .auth-wrapper {
   height: 100%;
     
 }
+
+.dashboard {
+  background-color: white;
+  min-height: 100vh;
+  background-size: 19.6%;
+
+}
 .navbar-dark {
   background-color: #610e19;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
@@ -67,8 +74,8 @@ body, html, .App, #root, .auth-wrapper {
 }
 .slide-container {    
   position: relative;
-/*   width: 600px;
-  height: 450px; */
+  width: 600px;
+  height: 430px;
   top: -80%;
   right: -15%;
 } 

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-export default class Dashboard extends Component {
-    render() {
-        return (
-            <div>
-                Dashboard
-            </div>
-        );
-    }
+import Navbar from './Navbar'
+export default function Dashboard() {
+    return (
+        <div className="dashboard">
+            <Navbar />
+            Dashboardasfasfs
+        </div>
+    );
 }

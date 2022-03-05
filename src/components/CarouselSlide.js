@@ -2,45 +2,50 @@ import React, { Component } from 'react'
 import { Fade } from "react-slideshow-image";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import useWindowSize from './useWindowSize';
 
 const caroImages = [
-    "images/benetton.jpg",
-    "images/happygirl.png",
-    "images/people.png",
-    "images/smiley.jpg",
-  ];
-  
-export default class CarouselSlide extends Component { 
-    render(){
-    return (
+  "images/benetton.jpg",
+  "images/happygirl.png",
+  "images/people.png",
+  "images/smiley.jpg",
+];
 
-      <Carousel dynamicHeight="false" width="40%" thumbWidth="3%" showIndicators="false" autoPlay="true" infiniteLoop="true" emulateTouch="true" >
-                <div>
-                    <img src={caroImages[0]} />
-                    
-                </div>
-                <div>
-                    <img src={caroImages[3]} />
-                    
-                </div>
-                <div>
-                    <img src={caroImages[2]} />
-                    <p className="legend">Legend 3</p>
-                </div>
-            </Carousel>
-       /*  <div>
-        <Fade >
+function CarouselSlide() {
+  const { width } = useWindowSize();
+  return (
+
+    /*       <Carousel dynamicHeight="true" showThumbs="false" width="42%" thumbWidth="0.00001%" showIndicators="false" autoPlay="true" infiniteLoop="true" emulateTouch="true" >
+                    <div>
+                        <img src={caroImages[0]} />
+                        
+                    </div>
+                    <div>
+                        <img src={caroImages[3]} />
+                        
+                    </div>
+                    <div>
+                        <img src={caroImages[2]} />
+                        <p className="legend">ddsfsdkfsdljf 3</p>
+                    </div>
+                </Carousel> */
+    <div>
+      {width > 1000 && (
+        <Fade autoPlay transition={3000} arrows={false}  >
           <div className="each-fade">
-            <img src={fadeImages[0]} />
+            <img src={caroImages[0]} />
           </div>
           <div className="each-fade">
-            <img src={fadeImages[1]} />
+            <img src={caroImages[1]} />
           </div>
           <div className="each-fade">
-            <img src={fadeImages[2]} />
+            <img src={caroImages[2]} />
           </div>
         </Fade>
-      </div> */
+      )}
+    </div>
+
   )
 }
-}
+
+export default CarouselSlide
