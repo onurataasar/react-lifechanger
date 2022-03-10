@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
 * {
   box-sizing: border-box;
@@ -85,4 +89,8 @@ body, html, .App, #root, .auth-wrapper {
   justify-content: center;
   background-size: cover;
   height: 450px;
+}
+
+.question{
+  text-align: center;
 }

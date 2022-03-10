@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import CarouselSlide from "./CarouselSlide";
 
 export default function Login() {
+
     return (
         <><div className="auth-wrapper">
             <div className="auth-inner">
@@ -22,7 +23,7 @@ export default function Login() {
                             <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-primary btn-block">Submit</button>
+                    <Link type="submit" className="btn btn-primary btn-block" to={"/dashboard"}>Submit</Link>
                     <p className="forgot-password text-right">
                         Don't have an account?<Link className="tags" to={"/sign-up"}>Sign up</Link>
                     </p>

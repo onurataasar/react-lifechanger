@@ -31,7 +31,7 @@ function CarouselSlide() {
                 </Carousel> */
     <div>
       {width > 1000 && (
-        <Fade autoPlay transition={3000} arrows={false}  >
+        <Fade autoPlay transition={1000} arrows={false}  >
           <div className="each-fade">
             <img src={caroImages[0]} />
           </div>

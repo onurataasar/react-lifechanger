@@ -17,6 +17,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Drawer from './Drawer'
+import { NightsStay } from '@material-ui/icons';
+import setRef from '@mui/utils/setRef';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -87,6 +89,11 @@ export default function Navbar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const handleLogout = () => {
+        localStorage.clear();
+        window.location.href = '/';
+    }
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -141,7 +148,7 @@ export default function Navbar() {
                     color="inherit"
                 >
                     <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
+                        <NightsStay />
                     </Badge>
                 </IconButton>
                 <p>Notifications</p>
@@ -194,27 +201,27 @@ export default function Navbar() {
                     </Search> */}
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        {/*  <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                        {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="error">
                                 <MailIcon />
                             </Badge>
-                        </IconButton>
+                        </IconButton> */}
                         <IconButton
                             size="large"
                             aria-label="show 17 new notifications"
                             color="inherit"
                         >
-                            <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
+                            <Badge color="error">
+                                <NightsStay />
                             </Badge>
-                        </IconButton> */}
+                        </IconButton>
                         <IconButton
                             size="large"
                             edge="end"
                             aria-label="account of current user"
                             aria-controls={menuId}
                             aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
+                            onClick={handleLogout}
                             color="inherit"
                         >
                             <LogoutIcon />
