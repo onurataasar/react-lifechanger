@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import CarouselSlide from "./CarouselSlide";
+import firebase from "@firebase/app-compat";
+import withFirebaseAuth from "react-with-firebase-auth";
+import App from "../App";
+
+
 
 export default function Login() {
 
