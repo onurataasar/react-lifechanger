@@ -7,6 +7,7 @@ import 'react-slideshow-image/dist/styles.css';
 import Dashboard from './components/Dashboard';
 import Navbar from './components/Navbar';
 import Quiz from './components/Quiz';
+import Welcome from './components/Welcome';
 
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
       </nav> */}
 
       <Routes>
-        <Route exact path='/' element={<Login />} />
+        <Route exact path='/' element={<Welcome />} />
+        <Route path="/welcome" element={<Welcome />} />
         <Route path="/sign-in" element={<Login />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />

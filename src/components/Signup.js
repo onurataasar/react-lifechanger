@@ -5,6 +5,9 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { auth, db, provider } from "../firebaseConfig";
 import { getFirestore, collection, addDoc, where, query, getDocs } from "firebase/firestore";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const UserRegistration = async (name, email, password) => {
     try {
@@ -55,30 +58,54 @@ export default function SignUp() {
     return (
         <><div className="auth-wrapper">
             <div className="auth-inner">
-                <form name='registration_form'>
+                <form>
                     <h3>Sign Up</h3>
+
+
                     <div className="form-group">
-                        <label>First name</label>
-                        <input type="text" className="firstName" placeholder="First name" />
+                        <TextField
+                            required
+                            id="outlined-required"
+                            label="Full Name"
+                            defaultValue=""
+                            margin="dense"
+                        />
+
+                        <TextField
+                            required
+                            id="outlined-required"
+                            label="E-mail"
+                            defaultValue=""
+                            margin="dense"
+
+                        />
+
+                        <TextField
+                            id="outlined-password-input"
+                            label="Password"
+                            type="password"
+                            autoComplete="current-password"
+                            margin="dense"
+                        />
+
+                        <TextField
+                            id="outlined-password-input"
+                            label="Confirm Password"
+                            type="password"
+                            autoComplete="current-password"
+                            margin="dense"
+                        />
+                        <p></p>
                     </div>
-                    <div className="form-group">
-                        <label>Last name</label>
-                        <input type="text" className="lastName" placeholder="Last name" />
+                    <div className="button-signup">
+                        <Button variant="contained" size="large" onClick={() => {
+                            alert('clicked');
+                        }}>Sign Up</Button>
                     </div>
-                    <div className="form-group">
-                        <label>Email address</label>
-                        <input type="email" className="email" placeholder="Enter email" />
-                    </div>
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" className="password" placeholder="Enter password" />
-                    </div>
-                    <div className="form-group">
-                        <label>Confirm Password</label>
-                        <input type="password" className="confirmPassword" placeholder="Re-write your password" />
-                    </div>
-                    <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+                    <p></p>
+
                     <GoogleLoginButton onClick={() => signInWithGoogle()} />
+
                     <p className="forgot-password text-right">
                         Already registered <Link className="tags" to={"/sign-in"}>Sign in</Link>
                     </p>

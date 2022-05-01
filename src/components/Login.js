@@ -4,6 +4,7 @@ import CarouselSlide from "./CarouselSlide";
 import firebase from "@firebase/app-compat";
 import withFirebaseAuth from "react-with-firebase-auth";
 import App from "../App";
+import { width } from "@mui/system";
 
 
 
