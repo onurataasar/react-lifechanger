@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 export default function Welcome() {
     return (
 
-
         <div>
             <h1>Welcome to LifeChanger</h1>
             <h2>A brand new experience to make your life better</h2>

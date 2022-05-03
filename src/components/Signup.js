@@ -5,24 +5,8 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { auth, db, provider } from "../firebaseConfig";
 import { getFirestore, collection, addDoc, where, query, getDocs } from "firebase/firestore";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
-const UserRegistration = async (name, email, password) => {
-    try {
-        const res = await auth.createUserWithEmailAndPassword(email, password);
-        const user = res.user;
-        await db.collection("users").add({
-            uid: user.uid,
-            name,
-            authProvider: "local",
-            email,
-        });
-    } catch (err) {
-        alert(err.message);
-    }
-};
 
 // Google Sign-in
 export const signInWithGoogle = async () => {
@@ -45,6 +29,7 @@ export const signInWithGoogle = async () => {
     }
 };
 
+
 // Reset password
 export const resetPassword = async (email) => {
     try {
@@ -54,7 +39,83 @@ export const resetPassword = async (email) => {
     }
 };
 
+function register() {
+    //ValidateEmail
+    function validate_email(email) {
+        var expression = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+        if (expression.test(email) == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Validate Password
+    function validate_password(password) {
+        //firebase only accepts passwords longer than 6 chars
+        if (password < 6) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //validate field
+    function validate_field(field) {
+        if (field == null) {
+            return false;
+        } if (field <= 0) {
+            return false;
+        } return true;
+    }
+
+    if (document.getElementById('email') != null) {
+        var email = document.getElementById('email').value;
+    } if (document.getElementById('password') != null) {
+        var password = document.getElementById('password').value;
+    } if (document.getElementById('name') != null) {
+        var name = document.getElementById('name').value;
+    }
+    if (validate_email(email) == false || validate_password(password) == false) {
+        alert('Please enter a valid email or password.')
+        return;
+    }
+
+    if (validate_field(name) == false) {
+        alert('Please fill all the fields')
+        return;
+    }
+
+    auth.createUserWithEmailAndPassword(email, password)
+        .then(function () {
+            //Declare user variable
+            var user = auth.currentUser;
+            //Add user to firebase db
+            var database_ref = db.ref();
+
+            //Create user data
+            var user_data = {
+                email: email,
+                name: name,
+                last_login: Date.now()
+            }
+
+            database_ref.child('users/' + user.uid).set(user_data)
+
+
+
+            alert("User Created");
+        })
+        .catch(function (error) {
+            var error_code = error_code;
+            var error_message = error_message;
+            alert(error_message);
+        })
+
+}
+
 export default function SignUp() {
+
     return (
         <><div className="auth-wrapper">
             <div className="auth-inner">
@@ -65,7 +126,7 @@ export default function SignUp() {
                     <div className="form-group">
                         <TextField
                             required
-                            id="outlined-required"
+                            id="name"
                             label="Full Name"
                             defaultValue=""
                             margin="dense"
@@ -73,7 +134,7 @@ export default function SignUp() {
 
                         <TextField
                             required
-                            id="outlined-required"
+                            id="email"
                             label="E-mail"
                             defaultValue=""
                             margin="dense"
@@ -81,7 +142,7 @@ export default function SignUp() {
                         />
 
                         <TextField
-                            id="outlined-password-input"
+                            id="password"
                             label="Password"
                             type="password"
                             autoComplete="current-password"
@@ -89,7 +150,7 @@ export default function SignUp() {
                         />
 
                         <TextField
-                            id="outlined-password-input"
+                            id="password"
                             label="Confirm Password"
                             type="password"
                             autoComplete="current-password"
@@ -100,6 +161,7 @@ export default function SignUp() {
                     <div className="button-signup">
                         <Button variant="contained" size="large" onClick={() => {
                             alert('clicked');
+                            register();
                         }}>Sign Up</Button>
                     </div>
                     <p></p>

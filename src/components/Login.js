@@ -2,10 +2,98 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import CarouselSlide from "./CarouselSlide";
 import firebase from "@firebase/app-compat";
-import withFirebaseAuth from "react-with-firebase-auth";
+import { auth, db, provider } from "../firebaseConfig";
 import App from "../App";
-import { width } from "@mui/system";
+import { GoogleLoginButton } from "react-social-login-buttons";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { getFirestore, collection, addDoc, where, query, getDocs } from "firebase/firestore";
+// Google Sign-in
+export const signInWithGoogle = async () => {
+    try {
+        const res = await auth.signInWithPopup(provider);
+        const user = res.user;
+        const userRef = collection(db, "users");
+        const result = await getDocs(query(userRef, where("uid", "==", user.uid)));
+        if (result.empty) {
+            await addDoc(collection(db, "users"), {
+                uid: user.uid,
+                name: user.displayName,
+                authProvider: "google",
+                email: user.email,
+            });
+        }
+    }
+    catch (err) {
+        alert(err.message);
+    }
+};
 
+
+function signin() {
+
+    if (document.getElementById('email') != null) {
+        var email = document.getElementById('email').value;
+    } if (document.getElementById('password') != null) {
+        var password = document.getElementById('password').value;
+    }
+
+    auth.signInWithEmailAndPassword(email, password)
+        .then(function () {
+            //Declare user variable
+            var user = auth.currentUser;
+            //Add user to firebase db
+            var database_ref = db.ref();
+
+            //Create user data
+            var user_data = {
+                last_login: Date.now()
+            }
+
+            database_ref.child('users/' + user.uid).update(user_data)
+
+
+
+            alert("Logged in succesfully.");
+        }).catch(function (error) {
+            var error_code = error_code;
+            var error_message = error_message;
+            alert(error_message);
+        })
+
+    if (validate_email(email) == false || validate_password(password) == false) {
+        alert('Please enter a valid email or password.')
+        return;
+    }
+    //ValidateEmail
+    function validate_email(email) {
+        var expression = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+        if (expression.test(email) == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Validate Password
+    function validate_password(password) {
+        //firebase only accepts passwords longer than 6 chars
+        if (password < 6) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //validate field
+    function validate_field(field) {
+        if (field == null) {
+            return false;
+        } if (field <= 0) {
+            return false;
+        } return true;
+    }
+}
 
 
 export default function Login() {
@@ -14,24 +102,42 @@ export default function Login() {
         <><div className="auth-wrapper">
             <div className="auth-inner">
                 <form>
-                    <h3>Sign In</h3>
+                    <h3>Sign in</h3>
+
+
                     <div className="form-group">
-                        <label>Email address</label>
-                        <input type="email" className="form-control" placeholder="Enter email" />
+
+                        <TextField
+                            required
+                            id="email"
+                            label="E-mail"
+                            defaultValue=""
+                            margin="dense"
+
+                        />
+
+                        <TextField
+                            id="password"
+                            label="Password"
+                            type="password"
+                            autoComplete="current-password"
+                            margin="dense"
+                        />
+
+                        <p></p>
                     </div>
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" className="form-control" placeholder="Enter password" />
+                    <div className="button-signup">
+                        <Button variant="contained" size="large" onClick={() => {
+                            alert('clicked');
+                            signin();
+                        }}>Sign In</Button>
                     </div>
-                    <div className="form-group">
-                        <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                            <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                        </div>
-                    </div>
-                    <Link type="submit" className="btn btn-primary btn-block" to={"/dashboard"}>Submit</Link>
+                    <p></p>
+
+                    <GoogleLoginButton onClick={() => signInWithGoogle()} />
+
                     <p className="forgot-password text-right">
-                        Don't have an account?<Link className="tags" to={"/sign-up"}>Sign up</Link>
+                        Already registered <Link className="tags" to={"/sign-in"}>Sign in</Link>
                     </p>
                 </form>
             </div>
