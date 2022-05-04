@@ -16,8 +16,10 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
 }));
 
+
 export default function Quiz() {
     return (
+
         <div className='dashboard'>
             <Navbar />
             <div className='question'>

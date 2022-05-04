@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import CarouselSlide from "./CarouselSlide";
-import firebase from "@firebase/app-compat";
 import { auth, db, provider } from "../firebaseConfig";
-import App from "../App";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { getFirestore, collection, addDoc, where, query, getDocs } from "firebase/firestore";
+import firebase from "@firebase/app-compat";
+
 // Google Sign-in
 export const signInWithGoogle = async () => {
     try {
@@ -56,15 +56,31 @@ function signin() {
 
             alert("Logged in succesfully.");
         }).catch(function (error) {
-            var error_code = error_code;
-            var error_message = error_message;
+            var errorCode = error.code;
+            var error_message = error.message;
             alert(error_message);
         })
+
+    //Handle Account Status
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            window.location = '/dashboard'; //After successful login, user will be redirected to dashboard.js
+        }
+    });
+
+
 
     if (validate_email(email) == false || validate_password(password) == false) {
         alert('Please enter a valid email or password.')
         return;
     }
+
+
+    if (validate_field(email) == false) {
+        alert('Please fill all the fields')
+        return;
+    }
+
     //ValidateEmail
     function validate_email(email) {
         var expression = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -128,16 +144,16 @@ export default function Login() {
                     </div>
                     <div className="button-signup">
                         <Button variant="contained" size="large" onClick={() => {
-                            alert('clicked');
                             signin();
                         }}>Sign In</Button>
                     </div>
                     <p></p>
 
+
                     <GoogleLoginButton onClick={() => signInWithGoogle()} />
 
                     <p className="forgot-password text-right">
-                        Already registered <Link className="tags" to={"/sign-in"}>Sign in</Link>
+                        Don't have an account? <Link className="tags" to={"/sign-up"}>Sign Up</Link>
                     </p>
                 </form>
             </div>

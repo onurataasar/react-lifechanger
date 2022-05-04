@@ -10,8 +10,8 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import { auth } from '../firebaseConfig';
+import firebase from "@firebase/app-compat";
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
@@ -90,8 +90,13 @@ export default function Navbar() {
     };
 
     const handleLogout = () => {
+        firebase.auth().signOut().then(function () {
+            alert('Signed Out');
+        }, function (error) {
+            console.error('Sign Out Error', error);
+        });
         localStorage.clear();
-        window.location.href = '/';
+        window.location.href = '/sign-in';
     }
 
     const menuId = 'primary-search-account-menu';
