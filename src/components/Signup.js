@@ -1,12 +1,12 @@
 import React from "react";
 import CarouselSlide from "./CarouselSlide";
 import { Link } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { auth, db, provider } from "../firebaseConfig";
-import { getFirestore, collection, addDoc, where, query, getDocs } from "firebase/firestore";
+import { collection, addDoc, where, query, getDocs } from "firebase/firestore";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import firebase from "@firebase/app-compat";
 
 // Google Sign-in
 export const signInWithGoogle = async () => {
@@ -75,13 +75,15 @@ function register() {
         var password = document.getElementById('password').value;
     } if (document.getElementById('name') != null) {
         var name = document.getElementById('name').value;
+    } if (document.getElementById('surname') != null) {
+        var surname = document.getElementById('surname').value;
     }
     if (validate_email(email) == false || validate_password(password) == false) {
         alert('Please enter a valid email or password.')
         return;
     }
 
-    if (validate_field(name) == false) {
+    if (validate_field(name || surname) == false) {
         alert('Please fill all the fields')
         return;
     }
@@ -97,6 +99,7 @@ function register() {
             var user_data = {
                 email: email,
                 name: name,
+                surname: surname,
                 last_login: Date.now()
             }
 
@@ -111,6 +114,14 @@ function register() {
             var error_message = error_message;
             alert(error_message);
         })
+
+    //redirect
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            window.location = '/quiz'; //After successful login, user will be redirected to quiz.js
+        }
+    });
+
 
 }
 
@@ -127,11 +138,17 @@ export default function SignUp() {
                         <TextField
                             required
                             id="name"
-                            label="Full Name"
+                            label="First Name"
                             defaultValue=""
                             margin="dense"
                         />
-
+                        <TextField
+                            required
+                            id="surname"
+                            label="Second Name"
+                            defaultValue=""
+                            margin="dense"
+                        />
                         <TextField
                             required
                             id="email"

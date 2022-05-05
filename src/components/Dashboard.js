@@ -9,8 +9,9 @@ import { getAuth } from "@firebase/auth";
 export default function Dashboard() {
 
     const dbRef = ref(getDatabase());
-    var uid = firebase.auth().currentUser.uid
-
+    if (firebase.auth().currentUser != null) {
+        var uid = firebase.auth().currentUser.uid
+    }
     get(child(dbRef, `users/${uid}/name`)).then((snapshot) => {
         if (snapshot.exists()) {
             console.log(snapshot.val());
