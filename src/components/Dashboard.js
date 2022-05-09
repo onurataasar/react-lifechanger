@@ -11,8 +11,9 @@ export default function Dashboard() {
     const dbRef = ref(getDatabase());
     if (firebase.auth().currentUser != null) {
         var uid = firebase.auth().currentUser.uid
+        console.log(uid);
     }
-    get(child(dbRef, `users/${uid}/name`)).then((snapshot) => {
+    get(child(dbRef, `users/${uid}`)).then((snapshot) => {
         if (snapshot.exists()) {
             console.log(snapshot.val());
         } else {

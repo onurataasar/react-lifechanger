@@ -101,6 +101,7 @@ body, html, .App, #root, .auth-wrapper {
 
 .question{
   text-align: center;
+  align-self: center;
 }
 
 .button-signup{

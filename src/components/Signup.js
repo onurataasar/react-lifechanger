@@ -109,7 +109,7 @@ function register() {
 
             alert("User Created");
         })
-        .catch(function (error) {
+        .catch(function (error_code) {
             var error_code = error_code;
             var error_message = error_message;
             alert(error_message);
@@ -118,7 +118,7 @@ function register() {
     //redirect
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            window.location = '/quiz'; //After successful login, user will be redirected to quiz.js
+            window.location = '/dashboard'; //After successful login, user will be redirected to quiz.js
         }
     });
 
