@@ -19,6 +19,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Drawer from './Drawer'
 import { NightsStay } from '@material-ui/icons';
 import setRef from '@mui/utils/setRef';
+import { UserAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -89,14 +91,18 @@ export default function Navbar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
-    const handleLogout = () => {
-        firebase.auth().signOut().then(function () {
-            alert('Signed Out');
-        }, function (error) {
-            console.error('Sign Out Error', error);
-        });
+    const { logout } = UserAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await logout()
+            navigate('/sign-in')
+            console.log("You are logged out.")
+        } catch (e) {
+            console.log(e.message)
+        }
         localStorage.clear();
-        window.location.href = '/sign-in';
     }
 
     const menuId = 'primary-search-account-menu';

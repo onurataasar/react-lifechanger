@@ -1,17 +1,20 @@
 import React from "react";
 import CarouselSlide from "./CarouselSlide";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GoogleLoginButton } from "react-social-login-buttons";
-import { auth, db, provider } from "../firebaseConfig";
+import { auth, db, gprovider } from "../firebaseConfig";
 import { collection, addDoc, where, query, getDocs } from "firebase/firestore";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import firebase from "@firebase/app-compat";
+import { useState } from "react";
+import { UserAuth } from "../context/AuthContext";
+
 
 // Google Sign-in
 export const signInWithGoogle = async () => {
     try {
-        const res = await auth.signInWithPopup(provider);
+        const res = await auth.signInWithPopup(gprovider);
         const user = res.user;
         const userRef = collection(db, "users");
         const result = await getDocs(query(userRef, where("uid", "==", user.uid)));
@@ -39,11 +42,13 @@ export const resetPassword = async (email) => {
     }
 };
 
-function register() {
+/* function register() {
+
+
     //ValidateEmail
     function validate_email(email) {
         var expression = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-        if (expression.test(email) == true) {
+        if (expression.test(email) === true) {
             return true;
         } else {
             return false;
@@ -78,12 +83,12 @@ function register() {
     } if (document.getElementById('surname') != null) {
         var surname = document.getElementById('surname').value;
     }
-    if (validate_email(email) == false || validate_password(password) == false) {
+    if (validate_email(email) === false || validate_password(password) === false) {
         alert('Please enter a valid email or password.')
         return;
     }
 
-    if (validate_field(name || surname) == false) {
+    if (validate_field(name || surname) === false) {
         alert('Please fill all the fields')
         return;
     }
@@ -108,29 +113,68 @@ function register() {
 
 
             alert("User Created");
+
+
         })
-        .catch(function (error_code) {
+        .catch(function (error) {
             var error_code = error_code;
             var error_message = error_message;
             alert(error_message);
         })
 
-    //redirect
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            window.location = '/dashboard'; //After successful login, user will be redirected to quiz.js
-        }
-    });
-
-
-}
+} */
 
 export default function SignUp() {
+    //redirect
+    /*     firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                window.location = '/dashboard'; //After successful login, user will be redirected to quiz.js
+            }
+        }); */
+
+    const [name, setName] = useState('')
+    const [surname, setSurname] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+
+    const { createUser } = UserAuth();
+
+    const navigate = useNavigate()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setError('')
+        try {
+            await createUser(email, password);
+            var user = auth.currentUser;
+            //Add user to firebase db
+            var database_ref = db.ref();
+
+            //Create user data
+            var user_data = {
+                email: email,
+                name: name,
+                surname: surname,
+                last_login: Date.now()
+            }
+
+            database_ref.child('users/' + user.uid).set(user_data)
+
+            alert("User Created");
+
+            navigate('/quiz')
+
+        } catch (e) {
+            setError(e.message)
+            console.log(e.message)
+        }
+    }
 
     return (
         <><div className="auth-wrapper">
             <div className="auth-inner">
-                <form>
+                <form onSubmit={handleSubmit}>
                     <h3>Sign Up</h3>
 
 
@@ -141,6 +185,7 @@ export default function SignUp() {
                             label="First Name"
                             defaultValue=""
                             margin="dense"
+                            onChange={(e) => setName(e.target.value)}
                         />
                         <TextField
                             required
@@ -148,6 +193,7 @@ export default function SignUp() {
                             label="Second Name"
                             defaultValue=""
                             margin="dense"
+                            onChange={(e) => setSurname(e.target.value)}
                         />
                         <TextField
                             required
@@ -155,7 +201,7 @@ export default function SignUp() {
                             label="E-mail"
                             defaultValue=""
                             margin="dense"
-
+                            onChange={(e) => setEmail(e.target.value)}
                         />
 
                         <TextField
@@ -163,23 +209,22 @@ export default function SignUp() {
                             label="Password"
                             type="password"
                             autoComplete="current-password"
+                            onChange={(e) => setPassword(e.target.value)}
                             margin="dense"
                         />
 
                         <TextField
-                            id="password"
+                            id="#password"
                             label="Confirm Password"
                             type="password"
                             autoComplete="current-password"
+                            onChange={(e) => setPassword(e.target.value)}
                             margin="dense"
                         />
                         <p></p>
                     </div>
                     <div className="button-signup">
-                        <Button variant="contained" size="large" onClick={() => {
-                            alert('clicked');
-                            register();
-                        }}>Sign Up</Button>
+                        <Button variant="contained" size="large" label="Submit" type="submit">Sign Up</Button>
                     </div>
                     <p></p>
 
@@ -190,8 +235,10 @@ export default function SignUp() {
                     </p>
                 </form>
             </div>
-        </div><div className="slide-container">
-                {<CarouselSlide />}
-            </div></>
+        </div>{/* <div className="slide-container">
+                {CarouselSlide()}
+
+            </div> */}  </>
+
     );
 }

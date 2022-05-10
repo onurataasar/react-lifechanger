@@ -49,6 +49,8 @@ body, html, .App, #root, .auth-wrapper {
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  align-self: center;
+
 }
 .auth-inner {
   width: 400px;
@@ -59,10 +61,14 @@ body, html, .App, #root, .auth-wrapper {
   border-radius: 40px;
   transition: all .3s;
   line-height: 2.8;
+  align-self: center;
+
 }
 .auth-wrapper .form-control:focus {
   border-color: #e52b50;
   box-shadow: none;
+  align-self: center;
+
 }
 .auth-wrapper h3 {
   text-align: center;

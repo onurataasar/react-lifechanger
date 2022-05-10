@@ -1,17 +1,19 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CarouselSlide from "./CarouselSlide";
-import { auth, db, provider } from "../firebaseConfig";
+import { auth, db, gprovider } from "../firebaseConfig";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { getFirestore, collection, addDoc, where, query, getDocs } from "firebase/firestore";
 import firebase from "@firebase/app-compat";
+import { UserAuth } from "../context/AuthContext";
+import { useState } from "react";
 
 // Google Sign-in
 export const signInWithGoogle = async () => {
     try {
-        const res = await auth.signInWithPopup(provider);
+        const res = await auth.signInWithPopup(gprovider);
         const user = res.user;
         const userRef = collection(db, "users");
         const result = await getDocs(query(userRef, where("uid", "==", user.uid)));
@@ -30,7 +32,7 @@ export const signInWithGoogle = async () => {
 };
 
 
-function signin() {
+/* function signin() {
 
     if (document.getElementById('email') != null) {
         var email = document.getElementById('email').value;
@@ -55,18 +57,15 @@ function signin() {
 
 
             alert("Logged in succesfully.");
+
+
+
         }).catch(function (error) {
             var errorCode = error.code;
             var error_message = error.message;
             alert(error_message);
         })
 
-    //Handle Account Status
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            window.location = '/dashboard'; //After successful login, user will be redirected to dashboard.js
-        }
-    });
 
 
 
@@ -109,15 +108,36 @@ function signin() {
             return false;
         } return true;
     }
-}
+} */
 
 
 export default function Login() {
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+
+    const { signIn } = UserAuth();
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('')
+        try {
+            await signIn(email, password);
+
+            navigate('/dashboard')
+
+        } catch (e) {
+            setError(e.message)
+            console.log(e.message)
+        }
+    }
+
     return (
         <><div className="auth-wrapper">
             <div className="auth-inner">
-                <form>
+                <form onSubmit={handleSubmit}>
                     <h3>Sign in</h3>
 
 
@@ -129,7 +149,7 @@ export default function Login() {
                             label="E-mail"
                             defaultValue=""
                             margin="dense"
-
+                            onChange={(e) => setEmail(e.target.value)}
                         />
 
                         <TextField
@@ -138,14 +158,14 @@ export default function Login() {
                             type="password"
                             autoComplete="current-password"
                             margin="dense"
+                            defaultValue=""
+                            onChange={(e) => setPassword(e.target.value)}
                         />
 
                         <p></p>
                     </div>
                     <div className="button-signup">
-                        <Button variant="contained" size="large" onClick={() => {
-                            signin();
-                        }}>Sign In</Button>
+                        <Button variant="contained" size="large" label="Submit" type="submit">Sign In</Button>
                     </div>
                     <p></p>
 
@@ -157,9 +177,9 @@ export default function Login() {
                     </p>
                 </form>
             </div>
-        </div><div className="slide-container">
+        </div>{/* <div className="slide-container">
                 {CarouselSlide()}
 
-            </div></>
+            </div> */}</>
     );
 }

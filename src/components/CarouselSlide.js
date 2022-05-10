@@ -39,7 +39,7 @@ function CarouselSlide() {
             <img src={caroImages[1]} />
           </div>
           <div className="each-fade">
-            <img src={caroImages[2]} />
+            <img src={caroImages[3]} />
           </div>
         </Fade>
       )}
