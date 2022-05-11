@@ -20,7 +20,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 
-
 /* function addDOB() {
     if (user_dob) {
         database_ref.child('users/' + user.uid).push().set(dob);
@@ -61,9 +60,7 @@ export default function Quiz() {
                 sleep: sleep,
             }
 
-            database_ref.child('users/' + user.uid).update(quiz_data)
-
-            alert("User Updated");
+            database_ref.child('users/' + user.uid).update(quiz_data);
 
             navigate('/dashboard')
 
