@@ -194,10 +194,11 @@ export default function Navbar() {
                         <MenuIcon />
                     </IconButton>
                     <Typography
-                        variant="h6"
+                        variant="h5"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        display="flex"
+                        sx={{ display: { xs: 'none', sm: 'block', paddingLeft: '42%' } }}
                     >
                         LifeChanger
                     </Typography>
