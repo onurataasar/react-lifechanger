@@ -11,7 +11,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Quiz, QuizRounded, Restore, Route, Settings } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, D } from 'react-router-dom';
 
 export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
 
@@ -32,7 +32,7 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                <ListItem button component={Link} to="/Dashboard">
+                <ListItem button component={Link} to="/profile">
                     <ListItemIcon>
                         <AccountCircle />
                     </ListItemIcon>
@@ -50,37 +50,11 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
                     <ListItemIcon>
                         <Restore />
                     </ListItemIcon>
-                    <ListItemText>History</ListItemText>
+                    <ListItemText>Dashboard</ListItemText>
                 </ListItem>
 
-                <ListItem button component={Link} to="/dashboard">
-                    <ListItemIcon>
-                        <Settings />
-                    </ListItemIcon>
-                    <ListItemText>Settings</ListItemText>
-                </ListItem>
-
-                {/*                 {['User Page', 'History', 'Quiz', 'Settings'].map((text, index) => (
-                    <ListItem button component={Link} to="/quiz" key={text}>
-
-                        <ListItemIcon>
-                            {index === 0 ? <AccountCircle /> : index === 1 ? <Restore /> : index === 2 ? <QuizRounded /> : <Settings />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))} */}
             </List>
             <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
         </Box>
     );
 

@@ -128,9 +128,10 @@ export default function Login() {
 
             navigate('/dashboard')
 
-        } catch (e) {
-            setError(e.message)
-            console.log(e.message)
+        } catch (error) {
+            setError(error.message)
+            console.log(error.message)
+            alert(error.message)
         }
     }
 

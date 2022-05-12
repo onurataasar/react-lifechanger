@@ -31,8 +31,46 @@ body, html, .App, #root, .auth-wrapper {
   min-height: 100vh;
   background-size: 19.6%;
 
+
 }
 
+.welcome {
+  background-color: rgba(243, 190, 190, 0.932);
+  min-height: 100vh;
+
+}
+.welcome-text {
+  text-align: right;
+/*   margin-left: 950px;
+  margin-top: 10px;
+   */
+   margin-left: auto;
+   margin-right: auto;
+   width: 30%;
+  transform: translate(450px,10px);
+  color: rgb(73, 83, 95);
+  display: table;
+}
+.button-welcome{
+  width: 400px;
+  height: 60px;
+  
+}
+.image{
+  margin-top: -500px;
+  margin-left: 200px;
+}
+
+.footer {
+  position: fixed;
+/*   height: 120px; */
+  margin-top: 120px;
+
+}
+.footer-columns{
+  height: 0px;
+  margin-top: -70px;
+}
 .quiz {
   background-color: rgba(240, 205, 205, 0.548);
   min-height: 100vh;
@@ -134,8 +172,16 @@ body, html, .App, #root, .auth-wrapper {
   display: table;
   margin-left: auto;
   margin-right: auto;
+  
 }
 
 .waterslider{
   margin-right: 50px,
+}
+
+.button-daily {
+  width: 30%;
+  height: 150%;
+  align-self: center;
+  transform: scaleY(1.3);
 }

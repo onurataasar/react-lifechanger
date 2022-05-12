@@ -43,7 +43,8 @@ export default function Dashboard() {
         { day: 1, mood: "happy" },
         { day: 2, mood: "neutral" },
         { day: 3, mood: "very happy" },
-        { day: 4, mood: "bad" }
+        { day: 4, mood: "bad" },
+        { day: 5, mood: "happy" }
     ];
 
     return (
@@ -89,8 +90,8 @@ export default function Dashboard() {
                     <VictoryAxis
                         // tickValues specifies both the number of ticks and where
                         // they are placed on the axis
-                        tickValues={[1, 2, 3, 4]}
-                        tickFormat={["Day 1", "Day 2", "Day 3", "Day 4"]}
+                        tickValues={[1, 2, 3, 4, 5]}
+                        tickFormat={["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"]}
                     />
                     <VictoryAxis
                         dependentAxis
@@ -109,69 +110,76 @@ export default function Dashboard() {
                 </VictoryChart>
             </div>
             <br></br> <hr></hr> <br></br>
-            <div className="sliders">
-                <div className="waterslider">
-                    <CircularSlider
-                        label="Water"
-                        labelColor="#005a58"
-                        knobColor="#e5155c"
-                        progressColorFrom="#e5155c"
-                        progressColorTo="#e5155c"
-                        progressSize={8}
-                        max={3}
-                        trackColor="#eeeeee"
-                        trackSize={3}
-                        data={["0 L", "1 L", "2 L", "3 L"]} //...
-                        dataIndex={0}
-                    />
+            <Stack spacing={6} display="flex">
+                <div className="sliders">
+                    <Stack spacing={6} display="flex" direction="row">
+                        <div className="waterslider">
+                            <CircularSlider
+                                label="Water"
+                                labelColor="#005a58"
+                                knobColor="#e5155c"
+                                progressColorFrom="#e5155c"
+                                progressColorTo="#e5155c"
+                                progressSize={8}
+                                max={3}
+                                trackColor="#eeeeee"
+                                trackSize={3}
+                                data={["0 L", "1 L", "2 L", "3 L"]} //...
+                                dataIndex={0}
+                            />
+                        </div>
+                        <div className="sleepslider">
+                            <CircularSlider
+                                label="Sleep"
+                                labelColor="#005a58"
+                                knobColor="#e5155c"
+                                progressColorFrom="#e5155c"
+                                progressColorTo="#e5155c"
+                                progressSize={8}
+                                max={12}
+                                trackColor="#eeeeee"
+                                trackSize={3}
+                                data={["0 hours", "1 hours", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours", "7 hours", "8 hours", "9 hours", "10 hours", "11 hours", "12 hours"]} //...
+                                dataIndex={0}
+                            />
+                        </div>
+                    </Stack>
                 </div>
-                <div className="sleepslider">
-                    <CircularSlider
-                        label="Sleep"
-                        labelColor="#005a58"
-                        knobColor="#e5155c"
-                        progressColorFrom="#e5155c"
-                        progressColorTo="#e5155c"
-                        progressSize={8}
-                        max={12}
-                        trackColor="#eeeeee"
-                        trackSize={3}
-                        data={["0 hours", "1 hours", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours", "7 hours", "8 hours", "9 hours", "10 hours", "11 hours", "12 hours"]} //...
-                        dataIndex={0}
-                    />
+                <div className="sliders">
+                    <Stack spacing={6} display="flex" direction="row">
+                        <div className="stepslider">
+                            <CircularSlider
+                                label="Steps"
+                                labelColor="#005a58"
+                                knobColor="#e5155c"
+                                progressColorFrom="#e5155c"
+                                progressColorTo="#e5155c"
+                                progressSize={8}
+                                max={10000}
+                                trackColor="#eeeeee"
+                                trackSize={3}
+                                dataIndex={0}
+                            />
+                        </div>
+                        <div className="workslider">
+                            <CircularSlider
+                                label="Hours of Work"
+                                labelColor="#005a58"
+                                knobColor="#e5155c"
+                                progressColorFrom="#e5155c"
+                                progressColorTo="#e5155c"
+                                progressSize={8}
+                                max={12}
+                                trackColor="#eeeeee"
+                                trackSize={3}
+                                data={["0 hours", "1 hours", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours", "7 hours", "8 hours", "9 hours", "10 hours", "11 hours", "12 hours"]} //...
+                                dataIndex={0}
+                            />
+                        </div>
+                    </Stack>
                 </div>
-            </div>
-            <div className="sliders">
-                <div className="stepslider">
-                    <CircularSlider
-                        label="Steps"
-                        labelColor="#005a58"
-                        knobColor="#e5155c"
-                        progressColorFrom="#e5155c"
-                        progressColorTo="#e5155c"
-                        progressSize={8}
-                        max={10000}
-                        trackColor="#eeeeee"
-                        trackSize={3}
-                        dataIndex={0}
-                    />
-                </div>
-                <div className="workslider">
-                    <CircularSlider
-                        label="Hours of Work"
-                        labelColor="#005a58"
-                        knobColor="#e5155c"
-                        progressColorFrom="#e5155c"
-                        progressColorTo="#e5155c"
-                        progressSize={8}
-                        max={12}
-                        trackColor="#eeeeee"
-                        trackSize={3}
-                        data={["0 hours", "1 hours", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours", "7 hours", "8 hours", "9 hours", "10 hours", "11 hours", "12 hours"]} //...
-                        dataIndex={0}
-                    />
-                </div>
-            </div>
+                <Button variant="contained" color="error" className="button-daily"> Submit Progress </Button>
+            </Stack><br></br>
         </div >
     );
 }

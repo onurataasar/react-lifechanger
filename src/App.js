@@ -9,7 +9,7 @@ import Quiz from './components/Quiz';
 import Welcome from './components/Welcome';
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
-
+import Profile from './components/Profile';
 
 function App() {
   return (
@@ -23,6 +23,8 @@ function App() {
           <Route path="/dashboard" element={
             <ProtectedRoute> <Dashboard /></ProtectedRoute>} />
           <Route path="/quiz" element={<ProtectedRoute><Quiz /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+
 
         </Routes>
       </AuthContextProvider>

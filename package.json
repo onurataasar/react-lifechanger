@@ -20,6 +20,7 @@
     "material-icons": "^1.9.1",
     "material-ui-icons": "^1.0.0-beta.36",
     "meteor-auth": "^0.2.0",
+    "rc-footer": "^0.6.6",
     "react": "^17.0.2",
     "react-auth-context": "0.0.2",
     "react-bootstrap-validation": "^0.1.11",
