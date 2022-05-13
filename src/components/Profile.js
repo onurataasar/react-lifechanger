@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Navbar from './Navbar'
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { getDatabase, ref, child, get } from "firebase/database";
 import firebase from "@firebase/app-compat";
 import 'firebase/compat/database';
@@ -9,15 +9,23 @@ import IconButton from '@mui/material/IconButton';
 import ToggleButton from '@mui/material/ToggleButton';
 import Stack from '@mui/material/Stack';
 import { Box } from "@mui/system";
-import SentimentVerySatisfiedSharpIcon from '@mui/icons-material/SentimentVerySatisfiedSharp';
-import MoodSharpIcon from '@mui/icons-material/MoodSharp';
-import SentimentSatisfiedSharpIcon from '@mui/icons-material/SentimentSatisfiedSharp';
-import SentimentDissatisfiedSharpIcon from '@mui/icons-material/SentimentDissatisfiedSharp';
-import SentimentVeryDissatisfiedSharpIcon from '@mui/icons-material/SentimentVeryDissatisfiedSharp';
-import CircularSlider from '@fseehawer/react-circular-slider';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import ProfileImageBox from 'react-profile-image-box';
+import { useState } from "react";
+
+
+
 
 export default function Profile() {
+    /*     state = {
+            src: "http://test.com/avatar_images_by_user/72"
+        } */
+
+    /*     function onFileChange(e, additionalParams) {
+            console.log(e.target.files);
+            console.log(additionalParams);
+            this.setState({ src: "http://arranzed2.com/avatar_images_by_user/70" });
+        } */
+
 
     const dbRef = ref(getDatabase());
 
@@ -38,6 +46,7 @@ export default function Profile() {
         }
     });
 
+
     return (
 
         <div className="dashboard" >
@@ -48,10 +57,24 @@ export default function Profile() {
                     marginLeft: "auto",
                     marginRight: "auto",
                     display: "table",
-                    width: 700,
-                    height: 80, p: 2, border: '2px solid grey',
+                    width: 800,
+                    height: 600, p: 2, border: '2px solid grey',
                     boxShadow: 8, borderRadius: 2
-                }}></Box>
+                }}>
+
+                    <div className="profile-image">
+                        <ProfileImageBox
+                            alt="Alt Text"
+                            allowUpload={true}
+                            /* onFileChange={(e) => this.onFileChange(e, { type: 'user-image' })} */
+                            src="https://pbs.twimg.com/profile_images/1521973541918412802/HwwZiLkL_400x400.jpg" />
+
+                    </div>
+                    <p></p>
+                    <Typography variant="h4">
+                        Name:
+                    </Typography>
+                </Box>
 
 
                 <p></p>

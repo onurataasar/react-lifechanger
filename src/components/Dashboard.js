@@ -16,15 +16,19 @@ import SentimentDissatisfiedSharpIcon from '@mui/icons-material/SentimentDissati
 import SentimentVeryDissatisfiedSharpIcon from '@mui/icons-material/SentimentVeryDissatisfiedSharp';
 import CircularSlider from '@fseehawer/react-circular-slider';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import ProfileImageBox from "react-profile-image-box";
+import StickyFooter from "./StickyFooter";
 
 export default function Dashboard() {
 
     const dbRef = ref(getDatabase());
 
+    //function to check is the user is authorized for the page in console log 
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             var uid = firebase.auth().currentUser.uid
             console.log("User anonymous: " + firebase.auth().currentUser.isAnonymous)
+            //with snapshot we can see the user's name from the database
             get(child(dbRef, `users/${uid}/name`)).then((snapshot) => {
 
                 if (snapshot.exists()) {
@@ -50,9 +54,11 @@ export default function Dashboard() {
     return (
 
         <div className="dashboard" >
-            <Navbar />
+            <Navbar /> {/* the navbar component we exported in navbar.js */}
+
             <div className="question">
                 <p></p>
+                {/* I have used a lot of MUI's box component to enhance the UI */}
                 <Box display='table' sx={{
                     marginLeft: "auto",
                     marginRight: "auto",
@@ -60,11 +66,16 @@ export default function Dashboard() {
                     width: 700,
                     height: 80, p: 2, border: '2px solid grey',
                     boxShadow: 8, borderRadius: 2
-                }}>
-                    <h3>Welcome back, how do you feel today?</h3>
+                }}> {/* Profile Image component allows user to update the photo 
+                but it is preferred to use in user profile page */}
+                    <h3> <ProfileImageBox
+                        alt="profile photo"
+                        allowUpload={false}
+                        src="https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png" /> Welcome back, how do you feel today? </h3>
 
                     <p></p>
                     <div className="mood"  >
+                        {/* The user will be choosen a mood daily with icon buttons */}
                         <Stack direction="row" spacing={1} display="flex">
                             <IconButton aria-label="very good" color="success">
                                 <SentimentVerySatisfiedSharpIcon />
@@ -178,8 +189,9 @@ export default function Dashboard() {
                         </div>
                     </Stack>
                 </div>
-                <Button variant="contained" color="error" className="button-daily"> Submit Progress </Button>
+                <Button variant="contained" style={{ background: '#e5155c' }} className="button-daily"> Submit Progress </Button>
             </Stack><br></br>
+            <StickyFooter></StickyFooter>
         </div >
     );
 }

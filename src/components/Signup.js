@@ -33,7 +33,7 @@ export const signInWithGoogle = async () => {
 };
 
 
-// Reset password
+// Reset password with firebase
 export const resetPassword = async (email) => {
     try {
         await auth.sendPasswordResetEmail(email);
@@ -125,13 +125,8 @@ export const resetPassword = async (email) => {
 } */
 
 export default function SignUp() {
-    //redirect
-    /*     firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                window.location = '/dashboard'; //After successful login, user will be redirected to quiz.js
-            }
-        }); */
 
+    //declaring consts to be used by the useState hook
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
@@ -142,6 +137,7 @@ export default function SignUp() {
 
     const navigate = useNavigate()
 
+    //async handleSubmit function to be used in submit form
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError('')
@@ -158,7 +154,7 @@ export default function SignUp() {
                 surname: surname,
                 last_login: Date.now()
             }
-
+            //adding the user to users database with firebase ref
             database_ref.child('users/' + user.uid).set(user_data)
 
             alert("User Created");
@@ -168,6 +164,7 @@ export default function SignUp() {
         } catch (e) {
             setError(e.message)
             console.log(e.message)
+            alert(e.message);
         }
     }
 

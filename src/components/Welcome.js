@@ -7,6 +7,7 @@ import FooterComponent from "./FooterComponent";
 import Button from "@mui/material/Button"
 import StandardImageList from "./StandartImageList";
 import { useNavigate } from "react-router";
+import StickyFooter from "./StickyFooter";
 
 
 
@@ -33,12 +34,13 @@ export default function Welcome() {
             </div>
             <div className="image">
                 <StandardImageList />
+
             </div>
 
             {/*            <Box component="span" sx={{ p: 2, border: '1px dashed gray' }}></Box>
             {CarouselSlide()} */}
-            <FooterComponent />
-
+            <StickyFooter />
         </div>
+
     )
 }

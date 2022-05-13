@@ -32,6 +32,13 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
+                <ListItem button component={Link} to="/dashboard" >
+                    <ListItemIcon>
+                        <Restore />
+                    </ListItemIcon>
+                    <ListItemText>Dashboard</ListItemText>
+                </ListItem>
+
                 <ListItem button component={Link} to="/profile">
                     <ListItemIcon>
                         <AccountCircle />
@@ -46,12 +53,7 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
                     <ListItemText>Quiz</ListItemText>
                 </ListItem>
 
-                <ListItem button component={Link} to="/dashboard" >
-                    <ListItemIcon>
-                        <Restore />
-                    </ListItemIcon>
-                    <ListItemText>Dashboard</ListItemText>
-                </ListItem>
+
 
             </List>
             <Divider />

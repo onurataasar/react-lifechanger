@@ -10,7 +10,8 @@ import firebase from "@firebase/app-compat";
 import { UserAuth } from "../context/AuthContext";
 import { useState } from "react";
 
-// Google Sign-in
+// async Google Sign-in method by using the provider we have declared in FirebaseConfig.js. 
+//Google auth is an adventage that comes with firebase
 export const signInWithGoogle = async () => {
     try {
         const res = await auth.signInWithPopup(gprovider);
@@ -113,12 +114,22 @@ export const signInWithGoogle = async () => {
 
 export default function Login() {
 
+    //assign useState() hooks to get email password and to catch error
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
+    //assigned signIn constant to userAuth function component to process the login function
+
     const { signIn } = UserAuth();
+
+    //useNavigate hook to redirect user after login
+
     const navigate = useNavigate();
+
+    //implemented async handleSubmit function, used preventDefault function to stop the default browser
+    //behaviour if something goes off in the event
 
     const handleSubmit = async (e) => {
         e.preventDefault();
