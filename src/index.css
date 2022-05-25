@@ -47,7 +47,7 @@ body, html, .App, #root, .auth-wrapper {
    margin-left: auto;
    margin-right: auto;
    width: 30%;
-  transform: translate(450px,10px);
+  transform: translate(300px,10px);
   color: rgb(73, 83, 95);
   display: table;
 }
@@ -58,7 +58,7 @@ body, html, .App, #root, .auth-wrapper {
 }
 .image{
   margin-top: -500px;
-  margin-left: 200px;
+  margin-left: 300px;
 }
 
 .footer {
@@ -189,4 +189,30 @@ body, html, .App, #root, .auth-wrapper {
 .profile-image {
   transform: translateY(500px);
   transform: scale(1.5);
+}
+
+
+.input-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+input[type=radio]:checked + label>img {
+  border: 1px solid #fff;
+  box-shadow: 0 0 3px 3px #e52b50;
+}
+
+/* Stuff after this is only to make things more pretty */
+input[type=radio] + label>img {
+  /* border: 0px dashed #444; */
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  transition: 500ms all;
+}
+
+input[type=radio]:checked + label>img {
+  transform: 
+    rotateZ(-10deg) 
+    rotateX(10deg);
 }

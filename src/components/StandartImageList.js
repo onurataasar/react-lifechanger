@@ -35,7 +35,7 @@ const itemData = [
         img: 'https://i.ibb.co/bXnYr22/image.png',
         title: 'LifeChanger',
         rows: 3,
-        cols: 3,
+        cols: 2,
     },
 
 

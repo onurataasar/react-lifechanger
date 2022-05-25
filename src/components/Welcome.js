@@ -8,7 +8,8 @@ import Button from "@mui/material/Button"
 import StandardImageList from "./StandartImageList";
 import { useNavigate } from "react-router";
 import StickyFooter from "./StickyFooter";
-
+import { AppBar } from "@mui/material";
+import { Typography } from "@mui/material";
 
 
 export default function Welcome() {
@@ -16,6 +17,20 @@ export default function Welcome() {
     return (
 
         <div className="welcome">
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar style={{ background: '#e5155c' }} position="static" >
+                    <Typography
+                        variant="h5"
+                        noWrap
+                        component="div"
+                        display="flex"
+                        sx={{ display: { xs: 'none', sm: 'block', textAlign: "center" } }}
+                    >   <p></p>
+                        LifeChanger
+                        <p></p>
+                    </Typography>
+                </AppBar>
+            </Box>
             <div className="welcome-text">
                 <br></br>
                 <h1>LifeChanger</h1>

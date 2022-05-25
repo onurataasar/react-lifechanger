@@ -7,13 +7,21 @@ import Link from '@mui/material/Link';
 
 function Copyright() {
     return (
-        <Typography variant="body2" color="text.secondary">
-            {'Copyright © '}
+        <Typography variant="body2" color="text.secondary" textAlign="center">
             <Link color="inherit" href="localhost:3000/Welcome">
-                LifeChanger
+                Copyright © LifeChanger
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
+        </Typography>
+    );
+}
+function Github() {
+    return (
+        <Typography variant="body2" color="text.secondary" textAlign="center">
+            <Link color="inherit" href="https://github.com/onurataasar/react-lifechanger">
+                Github
+            </Link>
         </Typography>
     );
 }
@@ -40,10 +48,12 @@ export default function StickyFooter() {
                 }}
             >
                 <Container maxWidth="sm">
-                    <Typography variant="body1">
-                        My sticky footer can be found here.
+                    <Typography variant="body1" color="white" textAlign="center">
+                        Made with love by Onur Ata Asar.
                     </Typography>
+                    <Github />
                     <Copyright />
+
                 </Container>
             </Box>
         </Box>
