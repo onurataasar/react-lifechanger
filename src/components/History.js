@@ -11,22 +11,11 @@ import Stack from '@mui/material/Stack';
 import { Box } from "@mui/system";
 import ProfileImageBox from 'react-profile-image-box';
 import { useState } from "react";
-import StickyFooter from "./StickyFooter";
-import { useNavigate } from 'react-router';
-import { auth, db } from "../firebaseConfig";
 
 
 
-export default function Profile() {
-    /*     state = {
-            src: "http://test.com/avatar_images_by_user/72"
-        } */
 
-    /*     function onFileChange(e, additionalParams) {
-            console.log(e.target.files);
-            console.log(additionalParams);
-            this.setState({ src: "http://arranzed2.com/avatar_images_by_user/70" });
-        } */
+export default function History() {
 
     const dbRef = ref(getDatabase());
 
@@ -73,24 +62,6 @@ export default function Profile() {
         }
     });
 
-    const navigate = useNavigate();
-
-    const handleDelete = async () => {
-        try {
-
-            var user = auth.currentUser;
-            var database_ref = db.ref();
-            user.delete();
-            //deleting the user to users database with firebase ref
-            database_ref.child('users/' + user.uid).remove()
-            navigate('/welcome')
-            console.log("You deleted.")
-        } catch (e) {
-            console.log(e.message)
-        }
-        localStorage.clear();
-    }
-
 
     return (
 
@@ -102,8 +73,8 @@ export default function Profile() {
                     marginLeft: "auto",
                     marginRight: "auto",
                     display: "table",
-                    width: 400,
-                    height: 500, p: 2,
+                    width: 600,
+                    height: 600, p: 2,
                     boxShadow: "1px 1px 1px 1px ", borderRadius: 2,
                     bgcolor: "#FCFCFC"
 
@@ -124,23 +95,17 @@ export default function Profile() {
                     </Typography>
                     <Typography id="ps" variant="h5"></Typography>
                     <hr></hr>
-
-                    <Typography id="pe" variant="h5">
+                    <Typography id="pe">
                         Email: {firebase.auth().currentUser.email}
 
                     </Typography>
-                    <p></p>
-                    <Typography id="pa" variant="h5">
+                    <Typography id="pa">
                     </Typography>
-                    <br></br>
-                    <p></p>
-                    <Button onClick={handleDelete} className="button-delete" variant="contained" color="error">Delete Account</Button>
                 </Box>
 
 
                 <p></p>
             </div >
-            <StickyFooter></StickyFooter>
         </div >
     );
 }

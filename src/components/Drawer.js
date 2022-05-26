@@ -53,6 +53,13 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
                     <ListItemText>Quiz</ListItemText>
                 </ListItem>
 
+                <ListItem button component={Link} to="/history">
+                    <ListItemIcon>
+                        <Restore />
+                    </ListItemIcon>
+                    <ListItemText>History</ListItemText>
+                </ListItem>
+
 
 
             </List>

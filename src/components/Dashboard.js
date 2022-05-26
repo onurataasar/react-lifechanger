@@ -45,14 +45,32 @@ export default function Dashboard() {
     const [daily_work, setdWork] = useState();
     const [daily_mood, setdMood] = useState("");
     const [e, setError] = useState('');
-    const [an, setA] = useState("");
+    const [today_mood, settMood] = useState("");
+    const [yesterday_mood, setyMood] = useState("");
+    const [threedays_mood, settdMood] = useState("");
+    const [fourdays_mood, setfodMood] = useState("");
+    const [fivedays_mood, setfidMood] = useState("");
 
-    var today = new Date();
 
+    var today = new Date();;
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
     today = dd + '-' + mm + '-' + yyyy;
+
+    //will be working on that later
+    if (dd == "01") {
+        var yesterday = "31-" + mm - 1 + "-" + yyyy
+    } else yesterday = dd - 1 + "-" + mm + "-" + yyyy;
+    if (dd == "02") {
+        var threedays = "30-" + mm - 1 + "-" + yyyy
+    } else threedays = dd - 2 + "-" + mm + "-" + yyyy;
+    if (dd == "03") {
+        var fourdays = "29-" + mm - 1 + "-" + yyyy
+    } else fourdays = dd - 3 + "-" + mm + "-" + yyyy;
+    if (dd == "04") {
+        var fivedays = "28-" + mm - 1 + "-" + yyyy
+    } else fivedays = dd - 4 + "-" + mm + "-" + yyyy;
 
 
 
@@ -91,7 +109,23 @@ export default function Dashboard() {
         var id = firebase.auth().currentUser.uid;
         firebase.database().ref('users').child(id).child(today).child("daily_mood").get()
             .then((snapshot) => {
-                setA(snapshot.val());
+                settMood(snapshot.val());
+            });
+        firebase.database().ref('users').child(id).child(yesterday).child("daily_mood").get()
+            .then((snapshot) => {
+                setyMood(snapshot.val());
+            });
+        firebase.database().ref('users').child(id).child(threedays).child("daily_mood").get()
+            .then((snapshot) => {
+                settdMood(snapshot.val());
+            });
+        firebase.database().ref('users').child(id).child(fourdays).child("daily_mood").get()
+            .then((snapshot) => {
+                setfodMood(snapshot.val());
+            });
+        firebase.database().ref('users').child(id).child(fivedays).child("daily_mood").get()
+            .then((snapshot) => {
+                setfidMood(snapshot.val());
             });
     }
 
@@ -99,14 +133,16 @@ export default function Dashboard() {
         setDaily();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    console.log(an)
+
+    console.log(today_mood)
+
     //Graph chart for mood
     const data = [
-        { day: 1, mood: an },
-        { day: 2, mood: an },
-        { day: 3, mood: an },
-        { day: 4, mood: an },
-        { day: 5, mood: an }
+        { day: 1, mood: today_mood },
+        { day: 2, mood: yesterday_mood },
+        { day: 3, mood: threedays_mood },
+        { day: 4, mood: fourdays_mood },
+        { day: 5, mood: fivedays_mood }
     ];
 
     return (
@@ -207,7 +243,7 @@ export default function Dashboard() {
                             dependentAxis
                             // tickFormat specifies how ticks should be displayed
                             tickValues={["very bad", "bad", "neutral", "happy", "very happy"]}
-                            tickFormat={["very bad", "bad", "neutral", "happy", "very happy"]}
+                            tickFormat={["BAD", "MEH", "OK", "GOOD", "BEST"]}
                         />
                         <VictoryBar
                             style={{ data: { fill: "#e5155c" } }}

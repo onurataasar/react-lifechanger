@@ -216,3 +216,9 @@ input[type=radio]:checked + label>img {
     rotateZ(-10deg) 
     rotateX(10deg);
 }
+
+.button-delete{
+  width: 300px;
+  height: 60px;
+  
+}

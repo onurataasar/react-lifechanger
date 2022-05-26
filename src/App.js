@@ -10,6 +10,7 @@ import Welcome from './components/Welcome';
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './components/Profile';
+import History from './components/History';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <ProtectedRoute> <Dashboard /></ProtectedRoute>} />
           <Route path="/quiz" element={<ProtectedRoute><Quiz /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
 
 
         </Routes>
