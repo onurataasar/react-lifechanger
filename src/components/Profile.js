@@ -14,21 +14,18 @@ import { useState } from "react";
 import StickyFooter from "./StickyFooter";
 import { useNavigate } from 'react-router';
 import { auth, db } from "../firebaseConfig";
+import { confirm } from "react-confirm-box";
+import NavItem from "rsuite/esm/Nav/NavItem";
 
 
 
 export default function Profile() {
-    /*     state = {
-            src: "http://test.com/avatar_images_by_user/72"
-        } */
 
-    /*     function onFileChange(e, additionalParams) {
-            console.log(e.target.files);
-            console.log(additionalParams);
-            this.setState({ src: "http://arranzed2.com/avatar_images_by_user/70" });
-        } */
 
     const dbRef = ref(getDatabase());
+    const [name, setName] = useState("");
+    const [surname, setsName] = useState("");
+    const [dob, setDob] = useState();
 
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -36,9 +33,8 @@ export default function Profile() {
             console.log("User anonymous: " + firebase.auth().currentUser.isAnonymous)
             get(child(dbRef, `users/${uid}/name`)).then((snapshot) => {
                 if (snapshot.exists()) {
-                    const name = snapshot.val();
-                    console.log(name);
-                    document.getElementById("pn").innerHTML = name;
+                    setName(snapshot.val());
+                    console.log(snapshot.val());
 
                 } else {
                     console.log("No data available");
@@ -49,9 +45,8 @@ export default function Profile() {
 
             get(child(dbRef, `users/${uid}/surname`)).then((snapshot) => {
                 if (snapshot.exists()) {
-                    const surname = snapshot.val();
-                    console.log(surname);
-                    document.getElementById("ps").innerHTML = surname;
+                    setsName(snapshot.val());
+                    console.log(snapshot.val());
 
                 } else {
                     console.log("No data available");
@@ -60,35 +55,69 @@ export default function Profile() {
 
             get(child(dbRef, `users/${uid}/dob`)).then((snapshot) => {
                 if (snapshot.exists()) {
-                    const dob = snapshot.val();
-                    console.log(dob);
-                    var currentTime = new Date();
-                    var year = currentTime.getFullYear();
-                    document.getElementById("pa").innerHTML = "Age: " + (year - dob);
-
+                    setDob(snapshot.val());
+                    console.log(snapshot.val());
                 } else {
                     console.log("No data available");
                 }
             })
         }
     });
+    const email = firebase.auth().currentUser.email
+    /*
+         const [pp, setPp] = useState();
+         const setPhoto = async (e) => {
+    
+            setError('')
+            try {
+                var user = auth.currentUser;
+                //Add user to firebase db
+                var database_ref = db.ref();
+    
+                //Create user data
+                var photo_data = {
+                    pp: pp,
+    
+                }
+    
+                database_ref.child('users/' + user.uid).set(photo_data);
+                console.log("Photo updated.")
+                this.render();
+    
+            } catch (e) {
+                setError(e.message)
+                console.log(e.message)
+            }
+        } */
 
+    var currentTime = new Date();
+    var year = currentTime.getFullYear();
     const navigate = useNavigate();
-
-    const handleDelete = async () => {
-        try {
-
-            var user = auth.currentUser;
-            var database_ref = db.ref();
-            user.delete();
-            //deleting the user to users database with firebase ref
-            database_ref.child('users/' + user.uid).remove()
-            navigate('/welcome')
-            console.log("You deleted.")
-        } catch (e) {
-            console.log(e.message)
+    const options = {
+        closeOnOverlayClick: true,
+        labels: {
+            confirmable: "Delete",
+            cancellable: "Cancel"
         }
-        localStorage.clear();
+    }
+    const handleDelete = async () => {
+        const result = await confirm("Are you sure?", options);
+        if (result) {
+            try {
+
+                var user = auth.currentUser;
+                var database_ref = db.ref();
+                user.delete();
+                //deleting the user to users database with firebase ref
+                database_ref.child('users/' + user.uid).remove()
+                navigate('/welcome')
+                console.log("You are deleted.")
+            } catch (e) {
+                console.log(e.message)
+            }
+            localStorage.clear();
+        }
+        console.log("You click No!");
     }
 
 
@@ -96,6 +125,7 @@ export default function Profile() {
 
         <div className="dashboard" >
             <Navbar />
+            <br></br>
             <div className="question">
                 <br></br>
                 <Box display='table' sx={{
@@ -109,28 +139,35 @@ export default function Profile() {
 
                 }}>
 
-                    <div className="profile-image">
-                        <img style={{ width: "20%", borderRadius: "50%" }}
-                            alt="Alt Text"
-                            allowUpload={true}
-                            /* onFileChange={(e) => this.onFileChange(e, { type: 'user-image' })} */
-                            src="https://pbs.twimg.com/profile_images/1521973541918412802/HwwZiLkL_400x400.jpg" />
+                    <div className="profile-image" >
+                        <input
+                            type="button" name="emotion"
+                            id="profile-photo" class="input-hidden"
+                            value="user-image"
+                        />
+                        <label htmlFor="photo-upload">
+                            <img style={{ width: "33%", borderRadius: "50%" }}
+                                src="https://img.icons8.com/external-flaticons-flat-flat-icons/344/external-user-web-flaticons-flat-flat-icons-2.png"
+                                alt="Profile Photo"
+                                /* onChange={(e) => setPp(e.target.value)} */ />
+                        </label>
 
                     </div>
                     <p></p>
                     <Typography id="pn" variant="h4" style={{ marginTop: "8%" }}>
-
+                        {name}
 
                     </Typography>
-                    <Typography id="ps" variant="h5"></Typography>
+                    <Typography id="ps" variant="h5"> {surname}</Typography>
                     <hr></hr>
 
                     <Typography id="pe" variant="h5">
-                        Email: {firebase.auth().currentUser.email}
+                        Email: {email}
 
                     </Typography>
                     <p></p>
                     <Typography id="pa" variant="h5">
+                        Age: {(year - dob)}
                     </Typography>
                     <br></br>
                     <p></p>

@@ -11,13 +11,21 @@ import Stack from '@mui/material/Stack';
 import { Box } from "@mui/system";
 import ProfileImageBox from 'react-profile-image-box';
 import { useState } from "react";
-
+import StickyFooter from "./StickyFooter";
+import { useNavigate } from 'react-router';
+import { auth, db } from "../firebaseConfig";
+import { confirm } from "react-confirm-box";
+import NavItem from "rsuite/esm/Nav/NavItem";
 
 
 
 export default function History() {
 
+
     const dbRef = ref(getDatabase());
+    /*     const [name, setName] = useState("");
+        const [surname, setsName] = useState("");
+        const [dob, setDob] = useState(); 
 
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -25,9 +33,8 @@ export default function History() {
             console.log("User anonymous: " + firebase.auth().currentUser.isAnonymous)
             get(child(dbRef, `users/${uid}/name`)).then((snapshot) => {
                 if (snapshot.exists()) {
-                    const name = snapshot.val();
-                    console.log(name);
-                    document.getElementById("pn").innerHTML = name;
+                    setName(snapshot.val());
+                    console.log(snapshot.val());
 
                 } else {
                     console.log("No data available");
@@ -38,9 +45,8 @@ export default function History() {
 
             get(child(dbRef, `users/${uid}/surname`)).then((snapshot) => {
                 if (snapshot.exists()) {
-                    const surname = snapshot.val();
-                    console.log(surname);
-                    document.getElementById("ps").innerHTML = surname;
+                    setsName(snapshot.val());
+                    console.log(snapshot.val());
 
                 } else {
                     console.log("No data available");
@@ -49,63 +55,62 @@ export default function History() {
 
             get(child(dbRef, `users/${uid}/dob`)).then((snapshot) => {
                 if (snapshot.exists()) {
-                    const dob = snapshot.val();
-                    console.log(dob);
-                    var currentTime = new Date();
-                    var year = currentTime.getFullYear();
-                    document.getElementById("pa").innerHTML = "Age: " + (year - dob);
-
+                    setDob(snapshot.val());
+                    console.log(snapshot.val());
                 } else {
                     console.log("No data available");
                 }
             })
         }
-    });
+    });*/
+    const email = firebase.auth().currentUser.email
+
+    var currentTime = new Date();
+    var year = currentTime.getFullYear();
+    const navigate = useNavigate();
+
 
 
     return (
 
         <div className="dashboard" >
             <Navbar />
+            <br></br>
             <div className="question">
                 <br></br>
                 <Box display='table' sx={{
                     marginLeft: "auto",
                     marginRight: "auto",
                     display: "table",
-                    width: 600,
-                    height: 600, p: 2,
+                    width: 400,
+                    height: 500, p: 2,
                     boxShadow: "1px 1px 1px 1px ", borderRadius: 2,
                     bgcolor: "#FCFCFC"
 
                 }}>
 
-                    <div className="profile-image">
-                        <img style={{ width: "20%", borderRadius: "50%" }}
-                            alt="Alt Text"
-                            allowUpload={true}
-                            /* onFileChange={(e) => this.onFileChange(e, { type: 'user-image' })} */
-                            src="https://pbs.twimg.com/profile_images/1521973541918412802/HwwZiLkL_400x400.jpg" />
+                    <div className="profile-image" >
+                        <input
+                            type="button" name="emotion"
+                            id="profile-photo" class="input-hidden"
+                            value="user-image"
+                        />
+                        <label htmlFor="photo-upload">
+                            <img style={{ width: "33%", borderRadius: "50%" }}
+                                src="https://img.icons8.com/external-flaticons-flat-flat-icons/344/external-user-web-flaticons-flat-flat-icons-2.png"
+                                alt="Profile Photo"
+                                /* onChange={(e) => setPp(e.target.value)} */ />
+                        </label>
 
                     </div>
                     <p></p>
-                    <Typography id="pn" variant="h4" style={{ marginTop: "8%" }}>
 
-
-                    </Typography>
-                    <Typography id="ps" variant="h5"></Typography>
-                    <hr></hr>
-                    <Typography id="pe">
-                        Email: {firebase.auth().currentUser.email}
-
-                    </Typography>
-                    <Typography id="pa">
-                    </Typography>
                 </Box>
 
 
                 <p></p>
             </div >
+            <StickyFooter></StickyFooter>
         </div >
     );
 }

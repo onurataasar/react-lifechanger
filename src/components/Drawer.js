@@ -10,7 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Quiz, QuizRounded, Restore, Route, Settings } from '@mui/icons-material';
+import { Quiz, QuizRounded, Restore, Route, Settings, Dashboard, DashboardRounded } from '@mui/icons-material';
 import { Link, D } from 'react-router-dom';
 
 export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
@@ -34,7 +34,7 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
             <List>
                 <ListItem button component={Link} to="/dashboard" >
                     <ListItemIcon>
-                        <Restore />
+                        <DashboardRounded />
                     </ListItemIcon>
                     <ListItemText>Dashboard</ListItemText>
                 </ListItem>
@@ -43,7 +43,7 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
                     <ListItemIcon>
                         <AccountCircle />
                     </ListItemIcon>
-                    <ListItemText>User Page</ListItemText>
+                    <ListItemText>Profile</ListItemText>
                 </ListItem>
 
                 <ListItem button component={Link} to="/quiz">

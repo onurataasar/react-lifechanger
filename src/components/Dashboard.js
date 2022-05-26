@@ -18,7 +18,7 @@ import { Navigate, useNavigate } from "react-router";
 export default function Dashboard() {
 
     const dbRef = ref(getDatabase());
-
+    const [name, setName] = useState("");
     //function to check is the user is authorized for the page in console log 
 
     if (auth.currentUser) {
@@ -28,9 +28,8 @@ export default function Dashboard() {
         get(child(dbRef, `users/${uid}/name`)).then((snapshot) => {
 
             if (snapshot.exists()) {
-                var name = snapshot.val()
-                console.log(name);
-                document.getElementById("wel-back").innerHTML = "Welcome back " + name + ". How do you feel today?";
+                setName(snapshot.val());
+                console.log(snapshot.val());
             } else {
                 console.log("No data available");
             }
@@ -38,7 +37,6 @@ export default function Dashboard() {
             console.error(error);
         });
     }
-
     const [daily_water, setdWater] = useState();
     const [daily_sleep, setdSleep] = useState();
     const [daily_steps, setdSteps] = useState();
@@ -163,7 +161,7 @@ export default function Dashboard() {
                         boxShadow: 8, borderRadius: 2
                     }}> {/* Profile Image component allows user to update the photo 
                 but it is preferred to use in user profile page */}
-                        <h3 id="wel-back">  </h3>
+                        <h3 id="wel-back"> Welcome back {name}. How are you feeling today? </h3>
 
                         <p></p>
                         <hr></hr>
@@ -336,6 +334,7 @@ export default function Dashboard() {
                             </div>
                         </Stack>
                     </div>
+                    <br></br>
                     <Button onClick={() => clickButton()} variant="contained" style={{ background: '#e5155c' }} className="button-daily"> Submit Progress </Button>
 
                 </Stack><br></br>
