@@ -35,7 +35,7 @@ body, html, .App, #root, .auth-wrapper {
 }
 
 .welcome {
-  background-color: rgba(243, 190, 190, 0.932);
+  background-color: rgba(243, 190, 190, 0.973);
   min-height: 100vh;
 
 }
@@ -62,7 +62,7 @@ body, html, .App, #root, .auth-wrapper {
 }
 
 .footer {
-  position: fixed;
+  position:sticky;
 /*   height: 120px; */
   margin-top: 120px;
 
@@ -72,7 +72,7 @@ body, html, .App, #root, .auth-wrapper {
   margin-top: -70px;
 }
 .quiz {
-  background-color: rgba(240, 205, 205, 0.74);
+  background-color: rgba(240, 205, 205, 0.897);
   min-height: 100vh;
   background-size: 19.6%;
 
@@ -221,4 +221,19 @@ input[type=radio]:checked + label>img {
   width: 300px;
   height: 60px;
   
+}
+
+.history-boxes{
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+}
+.history {
+  background-color: white;
+  min-height: min-content;
+  max-height: min-content;
+  background-size: 50%;
+  min-width: min-content;
+
+
 }

@@ -173,9 +173,6 @@ export default function Profile() {
                     <p></p>
                     <Button onClick={handleDelete} className="button-delete" variant="contained" color="error">Delete Account</Button>
                 </Box>
-
-
-                <p></p>
             </div >
             <StickyFooter></StickyFooter>
         </div >

@@ -267,10 +267,10 @@ export default function Dashboard() {
                                     progressColorFrom="#e5155c"
                                     progressColorTo="#e5155c"
                                     progressSize={8}
-                                    max={3}
+                                    max={7}
                                     trackColor="#eeeeee"
                                     trackSize={3}
-                                    data={["0 L", "1 L", "2 L", "3 L"]} //...
+                                    data={["0 L", "1 L", "2 L", "3 L", "4 L", "5 L", "6 L", "7 L"]} //...
                                     dataIndex={0}
                                     onChange={value => setdWater(value)}
 
@@ -285,10 +285,10 @@ export default function Dashboard() {
                                     progressColorFrom="#e5155c"
                                     progressColorTo="#e5155c"
                                     progressSize={8}
-                                    max={12}
+                                    max={24}
                                     trackColor="#eeeeee"
                                     trackSize={3}
-                                    data={["0 hours", "1 hours", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours", "7 hours", "8 hours", "9 hours", "10 hours", "11 hours", "12 hours"]} //...
+                                    data={["0 hours", "1 hours", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours", "7 hours", "8 hours", "9 hours", "10 hours", "11 hours", "12 hours", "13 hours", "14 hours", "15 hours", "16 hours", "17 hours", "18 hours", "19 hours", "20 hours", "21 hours", "22 hours", "23 hours", "24 hours"]} //...
                                     dataIndex={0}
                                     onChange={value => setdSleep(value)}
                                 />
@@ -306,7 +306,7 @@ export default function Dashboard() {
                                     progressColorFrom="#e5155c"
                                     progressColorTo="#e5155c"
                                     progressSize={8}
-                                    max={10000}
+                                    max={50000}
                                     trackColor="#eeeeee"
                                     trackSize={3}
                                     dataIndex={0}
@@ -323,10 +323,10 @@ export default function Dashboard() {
                                     progressColorFrom="#e5155c"
                                     progressColorTo="#e5155c"
                                     progressSize={8}
-                                    max={12}
+                                    max={24}
                                     trackColor="#eeeeee"
                                     trackSize={3}
-                                    data={["0 hours", "1 hours", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours", "7 hours", "8 hours", "9 hours", "10 hours", "11 hours", "12 hours"]} //...
+                                    data={["0 hours", "1 hours", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours", "7 hours", "8 hours", "9 hours", "10 hours", "11 hours", "12 hours", "13 hours", "14 hours", "15 hours", "16 hours", "17 hours", "18 hours", "19 hours", "20 hours", "21 hours", "22 hours", "23 hours", "24 hours"]} //...
                                     dataIndex={0}
                                     value={1}
                                     onChange={value => setdWork(value)}
@@ -337,7 +337,7 @@ export default function Dashboard() {
                     <br></br>
                     <Button onClick={() => clickButton()} variant="contained" style={{ background: '#e5155c' }} className="button-daily"> Submit Progress </Button>
 
-                </Stack><br></br>
+                </Stack>
             </form>
             <StickyFooter></StickyFooter>
         </div >
