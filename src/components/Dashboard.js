@@ -9,7 +9,6 @@ import Stack from '@mui/material/Stack';
 import { Box } from "@mui/system";
 import CircularSlider from '@fseehawer/react-circular-slider';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
-import ProfileImageBox from "react-profile-image-box";
 import StickyFooter from "./StickyFooter";
 import { auth, db } from "../firebaseConfig";
 import { RadioGroup } from "@mui/material";
@@ -20,10 +19,10 @@ export default function Dashboard() {
     const dbRef = ref(getDatabase());
     const [name, setName] = useState("");
     //function to check is the user is authorized for the page in console log 
-
+    console.log("User anonymous: " + firebase.auth().currentUser.isAnonymous)
     if (auth.currentUser) {
         let uid = firebase.auth().currentUser.uid;
-        console.log("User anonymous: " + firebase.auth().currentUser.isAnonymous)
+
         //with snapshot we can see the user's name from the database
         get(child(dbRef, `users/${uid}/name`)).then((snapshot) => {
 
@@ -56,7 +55,7 @@ export default function Dashboard() {
     var yyyy = today.getFullYear();
     today = dd + '-' + mm + '-' + yyyy;
 
-    //will be working on that later
+    //will be working on that
     if (dd == "01") {
         var yesterday = "31-" + mm - 1 + "-" + yyyy
     } else yesterday = dd - 1 + "-" + mm + "-" + yyyy;
@@ -92,7 +91,7 @@ export default function Dashboard() {
 
 
 
-            database_ref.child('users/' + user.uid).child(today).set(daily_data);
+            database_ref.child('users/' + user.uid).child("date").child(today).set(daily_data);
             alert("Day updated.")
             this.render();
 
@@ -105,23 +104,23 @@ export default function Dashboard() {
 
     if (auth.currentUser) {
         var id = firebase.auth().currentUser.uid;
-        firebase.database().ref('users').child(id).child(today).child("daily_mood").get()
+        firebase.database().ref('users').child(id).child("date").child(today).child("daily_mood").get()
             .then((snapshot) => {
                 settMood(snapshot.val());
             });
-        firebase.database().ref('users').child(id).child(yesterday).child("daily_mood").get()
+        firebase.database().ref('users').child(id).child("date").child(yesterday).child("daily_mood").get()
             .then((snapshot) => {
                 setyMood(snapshot.val());
             });
-        firebase.database().ref('users').child(id).child(threedays).child("daily_mood").get()
+        firebase.database().ref('users').child(id).child("date").child(threedays).child("daily_mood").get()
             .then((snapshot) => {
                 settdMood(snapshot.val());
             });
-        firebase.database().ref('users').child(id).child(fourdays).child("daily_mood").get()
+        firebase.database().ref('users').child(id).child("date").child(fourdays).child("daily_mood").get()
             .then((snapshot) => {
                 setfodMood(snapshot.val());
             });
-        firebase.database().ref('users').child(id).child(fivedays).child("daily_mood").get()
+        firebase.database().ref('users').child(id).child("date").child(fivedays).child("daily_mood").get()
             .then((snapshot) => {
                 setfidMood(snapshot.val());
             });

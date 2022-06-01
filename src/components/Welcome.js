@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import CarouselSlide from "./CarouselSlide";
 import Box from "@mui/material/Box";
-import Footer from "./FooterComponent";
-import FooterComponent from "./FooterComponent";
 import Button from "@mui/material/Button"
 import StandardImageList from "./StandartImageList";
 import { useNavigate } from "react-router";

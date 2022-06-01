@@ -15,20 +15,6 @@ function CarouselSlide() {
   const { width } = useWindowSize();
   return (
 
-    /*       <Carousel dynamicHeight="true" showThumbs="false" width="42%" thumbWidth="0.00001%" showIndicators="false" autoPlay="true" infiniteLoop="true" emulateTouch="true" >
-                    <div>
-                        <img src={caroImages[0]} />
-                        
-                    </div>
-                    <div>
-                        <img src={caroImages[3]} />
-                        
-                    </div>
-                    <div>
-                        <img src={caroImages[2]} />
-                        <p className="legend">ddsfsdkfsdljf 3</p>
-                    </div>
-                </Carousel> */
     <div>
       {width > 1000 && (
         <Fade autoPlay transition={1000} arrows={true}  >

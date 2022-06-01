@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 body {
-  background-image: url("./components/logo2.png") !important;
+  background-image: url("./assets/logo2.png") !important;
   background-repeat: repeat;
   background-color: #e52b50;
   background-size: 19.6%;
