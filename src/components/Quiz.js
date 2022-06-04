@@ -20,12 +20,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 
-/* function addDOB() {
-    if (user_dob) {
-        database_ref.child('users/' + user.uid).push().set(dob);
-    }
-} */
-
 
 //styled item for MUI's Paper component
 

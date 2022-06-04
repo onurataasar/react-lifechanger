@@ -8,7 +8,8 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import StickyFooter from "./StickyFooter";
 import { useNavigate } from 'react-router';
-import { Select, FormControl, InputLabel, MenuItem, FormHelperText } from "@mui/material";
+import { Select, FormControl, InputLabel, MenuItem, FormHelperText, TextField, Fab, Button } from "@mui/material";
+import { Search, SearchRounded } from "@mui/icons-material";
 
 
 export default function History() {
@@ -23,8 +24,8 @@ export default function History() {
 
     const dbRef = ref(getDatabase());
 
-    const [date, setDate] = useState([]);
-    const [ch_date, setCh_date] = useState("");
+    const [date, setDate] = useState(" ");
+    const [ch_date, setCh_date] = useState(" ");
     const [date_mood, setDate_mood] = useState("");
     const [date_water, setDate_water] = useState("");
     const [date_steps, setDate_steps] = useState("");
@@ -39,10 +40,7 @@ export default function History() {
     const [initial_water, setInitial_water] = useState("");
     const [initial_steps, setInitial_steps] = useState("");
     const [initial_sleep, setInitial_sleep] = useState("");
-    var keys = [];
-    const chooseDate = (event) => {
-        setCh_date(event.target.value);
-    };
+
     console.log("User anonymous: " + firebase.auth().currentUser.isAnonymous)
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -79,26 +77,33 @@ export default function History() {
                 }).catch((error) => {
                     console.error(error);
                 });
-            firebase.database().ref('users').child(uid).child("date").get()
+            firebase.database().ref('users').child(uid).child("date").child(ch_date).get()
                 .then((snapshot) => {
 
                     /* console.log(snapshot.exportVal()); */
-                    for (var i = 0; i < snapshot.numChildren(); i++) {
-                        keys.push(Object.keys(snapshot.val())[i]);
-
+                    if (snapshot.exists()) {
+                        setDate(snapshot.key)
+                        setDate_mood(snapshot.val().daily_mood)
+                        setDate_sleep(snapshot.val().daily_sleep)
+                        setDate_water(snapshot.val().daily_water)
+                        setDate_steps(snapshot.val().daily_steps)
+                        setDate_work(snapshot.val().daily_work)
+                    } else {
+                        setDate("No Data Available")
+                        setDate_mood("No Data Available")
+                        setDate_sleep("No Data Available")
+                        setDate_water("No Data Available")
+                        setDate_steps("No Data Available")
+                        setDate_work("No Data Available")
                     }
-                    return keys;
+
 
                 }).catch((error) => {
                     console.error(error);
                 });
-
+            console.log(date)
         }
     });
-
-
-    console.log(keys);
-    const navigate = useNavigate();
 
 
 
@@ -120,17 +125,20 @@ export default function History() {
                         <h4 style={{ textAlign: "center" }}>Choose Date</h4>
                         <hr></hr>
                         <FormControl sx={{ m: 1, minWidth: 200 }}>
-                            <Select
-                                value={ch_date}
-                                onChange={chooseDate}
-                                displayEmpty
-                                inputProps={{ 'aria-label': 'Date' }}
+                            <TextField
+                                id="outlined-date"
+                                label="Search History"
+                                type="text"
+                                placeholder={today}
+                                defaultValue={ch_date}
+
+
                             >
-                                <MenuItem value={"keys"}>
-                                </MenuItem>
-                            </Select>
-                            <FormHelperText>Date</FormHelperText>
+
+                            </TextField>
+                            <Button color="secondary" size="small" onClick={console.log(ch_date)}><SearchRounded /></Button>
                         </FormControl>
+                        <h3>{date}</h3>
                     </Box>
                     <Box display='table' sx={{
                         width: 400,

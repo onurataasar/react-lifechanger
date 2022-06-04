@@ -34,6 +34,7 @@
     "react-scripts": "4.0.3",
     "react-slideshow-image": "^3.7.0",
     "react-social-login-buttons": "^3.6.0",
+    "react-toastify": "^9.0.3",
     "react-with-firebase-auth": "^1.4.1",
     "rsuite": "^5.2.2",
     "victory": "^36.4.0",

@@ -13,10 +13,23 @@ import StickyFooter from "./StickyFooter";
 import { auth, db } from "../firebaseConfig";
 import { RadioGroup } from "@mui/material";
 import { Navigate, useNavigate } from "react-router";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Dashboard() {
 
     const dbRef = ref(getDatabase());
+    const notify = () => toast.success('🦄 Day updated.', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored"
+    });
     const [name, setName] = useState("");
     //function to check is the user is authorized for the page in console log 
     console.log("User anonymous: " + firebase.auth().currentUser.isAnonymous)
@@ -44,9 +57,9 @@ export default function Dashboard() {
     const [e, setError] = useState('');
     const [today_mood, settMood] = useState("");
     const [yesterday_mood, setyMood] = useState("");
-    const [threedays_mood, settdMood] = useState("");
-    const [fourdays_mood, setfodMood] = useState("");
-    const [fivedays_mood, setfidMood] = useState("");
+    const [two_mood, setTwo_mood] = useState("");
+    const [three_mood, setThree_mood] = useState("");
+    const [four_mood, setFour_mood] = useState("");
 
 
     var today = new Date();;
@@ -56,18 +69,10 @@ export default function Dashboard() {
     today = dd + '-' + mm + '-' + yyyy;
 
     //will be working on that
-    if (dd == "01") {
-        var yesterday = "31-" + mm - 1 + "-" + yyyy
-    } else yesterday = dd - 1 + "-" + mm + "-" + yyyy;
-    if (dd == "02") {
-        var threedays = "30-" + mm - 1 + "-" + yyyy
-    } else threedays = dd - 2 + "-" + mm + "-" + yyyy;
-    if (dd == "03") {
-        var fourdays = "29-" + mm - 1 + "-" + yyyy
-    } else fourdays = dd - 3 + "-" + mm + "-" + yyyy;
-    if (dd == "04") {
-        var fivedays = "28-" + mm - 1 + "-" + yyyy
-    } else fivedays = dd - 4 + "-" + mm + "-" + yyyy;
+    var yesterday = String(dd - 1).padStart(2, "0") + "-" + mm + "-" + yyyy;
+    var twodays = String(dd - 2).padStart(2, "0") + "-" + mm + "-" + yyyy;
+    var threedays = String(dd - 3).padStart(2, "0") + "-" + mm + "-" + yyyy;
+    var fourdays = String(dd - 4).padStart(2, "0") + "-" + mm + "-" + yyyy;
 
 
 
@@ -92,7 +97,8 @@ export default function Dashboard() {
 
 
             database_ref.child('users/' + user.uid).child("date").child(today).set(daily_data);
-            alert("Day updated.")
+            //alert("Day updated.")
+            notify();
             this.render();
 
         } catch (e) {
@@ -107,22 +113,27 @@ export default function Dashboard() {
         firebase.database().ref('users').child(id).child("date").child(today).child("daily_mood").get()
             .then((snapshot) => {
                 settMood(snapshot.val());
+                console.log(today + " " + today_mood);
             });
         firebase.database().ref('users').child(id).child("date").child(yesterday).child("daily_mood").get()
             .then((snapshot) => {
                 setyMood(snapshot.val());
+                console.log(yesterday + " " + yesterday_mood);
+            });
+        firebase.database().ref('users').child(id).child("date").child(twodays).child("daily_mood").get()
+            .then((snapshot) => {
+                setTwo_mood(snapshot.val());
+                console.log(twodays + " " + two_mood);
             });
         firebase.database().ref('users').child(id).child("date").child(threedays).child("daily_mood").get()
             .then((snapshot) => {
-                settdMood(snapshot.val());
+                setThree_mood(snapshot.val());
+                console.log(threedays + " " + three_mood);
             });
         firebase.database().ref('users').child(id).child("date").child(fourdays).child("daily_mood").get()
             .then((snapshot) => {
-                setfodMood(snapshot.val());
-            });
-        firebase.database().ref('users').child(id).child("date").child(fivedays).child("daily_mood").get()
-            .then((snapshot) => {
-                setfidMood(snapshot.val());
+                setFour_mood(snapshot.val());
+                console.log(fourdays + " " + four_mood);
             });
     }
 
@@ -133,19 +144,31 @@ export default function Dashboard() {
 
     console.log(today_mood)
 
+
     //Graph chart for mood
     const data = [
         { day: 1, mood: today_mood },
         { day: 2, mood: yesterday_mood },
-        { day: 3, mood: threedays_mood },
-        { day: 4, mood: fourdays_mood },
-        { day: 5, mood: fivedays_mood }
+        { day: 3, mood: two_mood },
+        { day: 4, mood: three_mood },
+        { day: 5, mood: four_mood }
     ];
 
     return (
 
         <div className="dashboard" >
             <Navbar /> {/* the navbar component we exported in navbar.js */}
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <form>
                 <div className="question">
 
@@ -234,7 +257,7 @@ export default function Dashboard() {
                             // tickValues specifies both the number of ticks and where
                             // they are placed on the axis
                             tickValues={[1, 2, 3, 4, 5]}
-                            tickFormat={["Today", "Yesterday", "3 days ago", "4 days ago", "5 days ago"]}
+                            tickFormat={["Today", "Yesterday", "2 days ago", "3 days ago", "4 days ago"]}
                         />
                         <VictoryAxis
                             dependentAxis
