@@ -22,6 +22,13 @@ export default function History() {
     today = dd + '-' + mm + '-' + yyyy;
     console.log(today);
 
+    const submitDate = () => {
+
+        const change_date = {
+            "ch_date": ch_date
+        }
+    }
+
     const dbRef = ref(getDatabase());
 
     const [date, setDate] = useState(" ");
@@ -80,21 +87,23 @@ export default function History() {
             firebase.database().ref('users').child(uid).child("date").child(ch_date).get()
                 .then((snapshot) => {
 
-                    /* console.log(snapshot.exportVal()); */
-                    if (snapshot.exists()) {
-                        setDate(snapshot.key)
-                        setDate_mood(snapshot.val().daily_mood)
-                        setDate_sleep(snapshot.val().daily_sleep)
-                        setDate_water(snapshot.val().daily_water)
-                        setDate_steps(snapshot.val().daily_steps)
-                        setDate_work(snapshot.val().daily_work)
-                    } else {
+                    if (ch_date == null || snapshot.val() == null) {
                         setDate("No Data Available")
                         setDate_mood("No Data Available")
                         setDate_sleep("No Data Available")
                         setDate_water("No Data Available")
                         setDate_steps("No Data Available")
                         setDate_work("No Data Available")
+                    } else {
+                        console.log(snapshot.key);
+
+                        setDate(snapshot.key)
+                        setDate_mood(snapshot.val().daily_mood)
+                        setDate_sleep(snapshot.val().daily_sleep)
+                        setDate_water(snapshot.val().daily_water)
+                        setDate_steps(snapshot.val().daily_steps)
+                        setDate_work(snapshot.val().daily_work)
+
                     }
 
 
@@ -103,6 +112,7 @@ export default function History() {
                 });
             console.log(date)
         }
+
     });
 
 
@@ -121,24 +131,29 @@ export default function History() {
                         boxShadow: "1px 1px 1px 1px ", borderRadius: 2,
                         bgcolor: "#FCFCFC"
 
-                    }}>
-                        <h4 style={{ textAlign: "center" }}>Choose Date</h4>
-                        <hr></hr>
-                        <FormControl sx={{ m: 1, minWidth: 200 }}>
-                            <TextField
-                                id="outlined-date"
-                                label="Search History"
-                                type="text"
-                                placeholder={today}
-                                defaultValue={ch_date}
+                    }}> <div style={{ textAlign: "center" }}>
+                            <h4 >Choose Date</h4>
+                            <hr></hr>
+                            <FormControl sx={{ m: 1, minWidth: 200 }}>
+                                <TextField
+                                    id="outlined-date"
+                                    label="Search History"
+                                    type="text"
+                                    placeholder={today}
+                                    onChange={e => setCh_date(e.target.value)}
 
 
-                            >
+                                >
 
-                            </TextField>
-                            <Button color="secondary" size="small" onClick={console.log(ch_date)}><SearchRounded /></Button>
-                        </FormControl>
-                        <h3>{date}</h3>
+                                </TextField>
+                                <Button color="secondary" size="small" onClick={submitDate}><SearchRounded /></Button>
+                            </FormControl>
+                            <h4>Mood: {date_mood}</h4>
+                            <h4>Water: {date_water}</h4>
+                            <h4>Sleep: {date_sleep}</h4>
+                            <h4>Steps: {date_steps}</h4>
+                            <h4>Work: {date_work}</h4>
+                        </div>
                     </Box>
                     <Box display='table' sx={{
                         width: 400,
