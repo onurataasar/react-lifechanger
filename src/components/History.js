@@ -47,6 +47,10 @@ export default function History() {
     const [initial_water, setInitial_water] = useState("");
     const [initial_steps, setInitial_steps] = useState("");
     const [initial_sleep, setInitial_sleep] = useState("");
+    const [goal_water, setGoal_water] = useState("");
+    const [goal_steps, setGoal_steps] = useState("");
+    const [goal_sleep, setGoal_sleep] = useState("");
+    const [goal_work, setGoal_work] = useState("");
 
     console.log("User anonymous: " + firebase.auth().currentUser.isAnonymous)
     firebase.auth().onAuthStateChanged(function (user) {
@@ -103,6 +107,23 @@ export default function History() {
                         setDate_water(snapshot.val().daily_water)
                         setDate_steps(snapshot.val().daily_steps)
                         setDate_work(snapshot.val().daily_work)
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            firebase.database().ref('users').child(uid).child("goals").get()
+                .then((snapshot) => {
+
+                    if (snapshot.val() == null) {
+                        setGoal_sleep("Haven't set yet")
+                        setGoal_water("Haven't set yet")
+                        setGoal_steps("Haven't set yet")
+                        setGoal_work("Haven't set yet")
+                    } else {
+                        setGoal_sleep(snapshot.val().sleep + " hours")
+                        setGoal_water(snapshot.val().water + " litres")
+                        setGoal_steps(snapshot.val().steps + " steps")
+                        setGoal_work(snapshot.val().work + " hours")
 
                     }
 
@@ -128,16 +149,16 @@ export default function History() {
                     <Box display='table' sx={{
                         width: 400,
                         height: 500, p: 2,
-                        boxShadow: "1px 1px 1px 1px ", borderRadius: 2,
+                        boxShadow: "1px 1px 1px 0.5px ", borderRadius: 2,
                         bgcolor: "#FCFCFC"
 
                     }}> <div style={{ textAlign: "center" }}>
-                            <h2 >Choose Date</h2>
+                            <h2 >Search Date</h2>
                             <hr></hr>
                             <FormControl sx={{ m: 1, minWidth: 350 }}>
                                 <TextField
                                     id="outlined-date"
-                                    label="Search History"
+                                    label="Search Date"
                                     type="text"
                                     placeholder={today}
                                     onChange={e => setCh_date(e.target.value)}
@@ -195,7 +216,7 @@ export default function History() {
                     <Box display='table' sx={{
                         width: 400,
                         height: 500, p: 2,
-                        boxShadow: "1px 1px 1px 1px ", borderRadius: 2,
+                        boxShadow: "1px 1px 1px 0.5px ", borderRadius: 2,
                         bgcolor: "#FCFCFC"
 
                     }}> <div style={{ textAlign: "center" }}>
@@ -246,30 +267,57 @@ export default function History() {
                             <h5>Work Hours: {today_work} </h5>
                         </div>
                     </Box>
-                    <Box display='table' sx={{
-                        width: 400,
-                        height: 500, p: 2,
-                        boxShadow: "1px 1px 1px 1px ", borderRadius: 2,
-                        bgcolor: "#FCFCFC"
 
-                    }}>
-                        <div style={{ textAlign: "center" }}>
-                            <h2>Initial</h2>
-                            <hr></hr>
+                    <Stack spacing={4} display="flex" direction="column">
 
-                            <h6>Before you start using LifeChanger, you were...</h6>
-                            <p></p>
-                            Drinking water between {initial_water} litres
-                            <p></p>
-                            Getting sleep between {initial_sleep} hours
-                            <p></p>
-                            Taking steps between {initial_steps}
-                            <p></p>
-                            Working between {initial_work} hours
-                            <p></p>
-                        </div>
+                        <Box display='table' sx={{
+                            width: 400,
+                            height: 300, p: 2,
+                            boxShadow: "1px 1px 1px 0.5px ", borderRadius: 2,
+                            bgcolor: "#FCFCFC"
 
-                    </Box>
+                        }}>
+                            <div style={{ textAlign: "center" }}>
+                                <h2>Initial</h2>
+                                <hr></hr>
+
+                                <h6>Before you start using LifeChanger, you were...</h6>
+                                <p></p>
+                                Drinking water between {initial_water} litres
+                                <p></p>
+                                Getting sleep between {initial_sleep} hours
+                                <p></p>
+                                Taking steps between {initial_steps}
+                                <p></p>
+                                Working between {initial_work} hours
+                                <p></p>
+                            </div>
+
+                        </Box>
+                        <Box display='table' sx={{
+                            width: 400,
+                            height: 300, p: 2,
+                            boxShadow: "1px 1px 1px 0.5px ", borderRadius: 2,
+                            bgcolor: "#FCFCFC"
+
+                        }}>
+                            <div style={{ textAlign: "center" }}>
+                                <h2>Goals</h2>
+                                <hr></hr>
+
+                                <h6>The goals you have setted are... </h6>
+                                <p></p>
+                                Water goal: {goal_water}
+                                <p></p>
+                                Sleep goal: {goal_sleep}
+                                <p></p>
+                                Steps goal: {goal_steps}
+                                <p></p>
+                                Work goal: {goal_work}
+                                <p></p>
+                            </div>
+                        </Box>
+                    </Stack>
                 </Stack>
 
             </div >

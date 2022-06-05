@@ -11,6 +11,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './components/Profile';
 import History from './components/History';
+import Goals from './components/Goals';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/dashboard" element={
             <ProtectedRoute> <Dashboard /></ProtectedRoute>} />
           <Route path="/quiz" element={<ProtectedRoute><Quiz /></ProtectedRoute>} />
+          <Route path="/goals" element={<ProtectedRoute><Goals /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
 

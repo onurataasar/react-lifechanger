@@ -15,6 +15,7 @@ import { RadioGroup } from "@mui/material";
 import { Navigate, useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Skeleton from "@mui/material/Skeleton";
 
 
 export default function Dashboard() {
@@ -183,7 +184,7 @@ export default function Dashboard() {
                         boxShadow: 8, borderRadius: 2
                     }}> {/* Profile Image component allows user to update the photo 
                 but it is preferred to use in user profile page */}
-                        <h3 id="wel-back"> Welcome back {name}. How are you feeling today? </h3>
+                        <h3 id="wel-back"> Welcome, {name}. How are you feeling today? </h3>
 
                         <p></p>
                         <hr></hr>

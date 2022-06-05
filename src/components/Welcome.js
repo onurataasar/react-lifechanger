@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import CarouselSlide from "./CarouselSlide";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button"
 import StandardImageList from "./StandartImageList";
@@ -50,8 +49,6 @@ export default function Welcome() {
 
             </div>
 
-            {/*            <Box component="span" sx={{ p: 2, border: '1px dashed gray' }}></Box>
-            {CarouselSlide()} */}
             <StickyFooter />
         </div>
 

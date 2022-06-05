@@ -64,31 +64,6 @@ export default function Profile() {
         }
     });
     const email = firebase.auth().currentUser.email
-    /*
-         const [pp, setPp] = useState();
-         const setPhoto = async (e) => {
-    
-            setError('')
-            try {
-                var user = auth.currentUser;
-                //Add user to firebase db
-                var database_ref = db.ref();
-    
-                //Create user data
-                var photo_data = {
-                    pp: pp,
-    
-                }
-    
-                database_ref.child('users/' + user.uid).set(photo_data);
-                console.log("Photo updated.")
-                this.render();
-    
-            } catch (e) {
-                setError(e.message)
-                console.log(e.message)
-            }
-        } */
 
     var currentTime = new Date();
     var year = currentTime.getFullYear();

@@ -235,5 +235,11 @@ input[type=radio]:checked + label>img {
   background-size: 50%;
   min-width: min-content;
 
+}
 
+.goalimage {
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+  user-select: none;
 }

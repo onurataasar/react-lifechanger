@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import CarouselSlide from "./CarouselSlide";
 import { auth, db, gprovider } from "../firebaseConfig";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import TextField from "@mui/material/TextField";
@@ -113,9 +112,6 @@ export default function Login() {
                         </p>
                     </form>
                 </div>
-            </div>{/* <div className="slide-container">
-                {CarouselSlide()}
-
-            </div> */}</>
+            </div></>
     );
 }

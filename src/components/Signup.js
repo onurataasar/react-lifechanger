@@ -1,5 +1,4 @@
 import React from "react";
-import CarouselSlide from "./CarouselSlide";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { auth, db, gprovider } from "../firebaseConfig";
@@ -267,10 +266,7 @@ export default function SignUp() {
                         </p>
                     </form>
                 </div>
-            </div>{/* <div className="slide-container">
-                {CarouselSlide()}
-
-            </div> */}  </>
+            </div>  </>
 
     );
 }
