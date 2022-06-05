@@ -9,9 +9,10 @@ import Button from "@mui/material/Button";
 import firebase from "@firebase/app-compat";
 import { useState } from "react";
 import { UserAuth } from "../context/AuthContext";
+import { toast, ToastContainer } from "react-toastify";
 
 
-// Google Sign-in
+/* // Google Sign-in
 export const signInWithGoogle = async () => {
     try {
         const res = await auth.signInWithPopup(gprovider);
@@ -30,17 +31,7 @@ export const signInWithGoogle = async () => {
     catch (err) {
         alert(err.message);
     }
-};
-
-
-// Reset password with firebase
-export const resetPassword = async (email) => {
-    try {
-        await auth.sendPasswordResetEmail(email);
-    } catch (err) {
-        alert(err.message);
-    }
-};
+}; */
 
 /* function register() {
 
@@ -131,6 +122,7 @@ export default function SignUp() {
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [c_password, setC_password] = useState('')
     const [error, setError] = useState('')
 
     const { createUser } = UserAuth();
@@ -141,98 +133,141 @@ export default function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError('')
-        try {
-            await createUser(email, password);
-            var user = auth.currentUser;
-            //Add user to firebase db
-            var database_ref = db.ref();
+        if (password === c_password) {
+            try {
+                await createUser(email, password);
+                var user = auth.currentUser;
+                //Add user to firebase db
+                var database_ref = db.ref();
 
-            //Create user data
-            var user_data = {
-                email: email,
-                name: name,
-                surname: surname,
-                last_login: Date.now()
+                //Create user data
+                var user_data = {
+                    email: email,
+                    name: name,
+                    surname: surname,
+                    last_login: Date.now()
+                }
+                //adding the user to users database with firebase ref
+
+                database_ref.child('users/' + user.uid).set(user_data)
+                toast.success("User Created", {
+                    position: "top-center",
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark"
+                });
+
+                navigate('/quiz')
+
+
+            } catch (e) {
+                setError(e.message)
+                console.log(e.message)
+                toast.error(e.message, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark"
+                });
             }
-            //adding the user to users database with firebase ref
-            database_ref.child('users/' + user.uid).set(user_data)
-
-            alert("User Created");
-
-            navigate('/quiz')
-
-        } catch (e) {
-            setError(e.message)
-            console.log(e.message)
-            alert(e.message);
-        }
+        } else toast.error('Passwords do not match...', {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark"
+        });
     }
 
     return (
-        <><div className="auth-wrapper">
-            <div className="auth-inner">
-                <form onSubmit={handleSubmit}>
-                    <h3>Sign Up</h3>
+        <>
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            <div className="auth-wrapper">
+                <div className="auth-inner">
+                    <form onSubmit={handleSubmit}>
+                        <h3>Sign Up</h3>
 
 
-                    <div className="form-group">
-                        <TextField
-                            required
-                            id="name"
-                            label="First Name"
-                            defaultValue=""
-                            margin="dense"
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                        <TextField
-                            required
-                            id="surname"
-                            label="Second Name"
-                            defaultValue=""
-                            margin="dense"
-                            onChange={(e) => setSurname(e.target.value)}
-                        />
-                        <TextField
-                            required
-                            id="email"
-                            label="E-mail"
-                            defaultValue=""
-                            margin="dense"
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                        <div className="form-group">
+                            <TextField
+                                required
+                                id="name"
+                                label="First Name"
+                                defaultValue=""
+                                margin="dense"
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                            <TextField
+                                required
+                                id="surname"
+                                label="Second Name"
+                                defaultValue=""
+                                margin="dense"
+                                onChange={(e) => setSurname(e.target.value)}
+                            />
+                            <TextField
+                                required
+                                id="email"
+                                label="E-mail"
+                                defaultValue=""
+                                margin="dense"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
 
-                        <TextField
-                            id="password"
-                            label="Password"
-                            type="password"
-                            autoComplete="current-password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            margin="dense"
-                        />
+                            <TextField
+                                required
+                                id="password"
+                                label="Password"
+                                type="password"
+                                autoComplete="current-password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                margin="dense"
+                            />
 
-                        <TextField
-                            id="#password"
-                            label="Confirm Password"
-                            type="password"
-                            autoComplete="current-password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            margin="dense"
-                        />
+                            <TextField
+                                required
+                                id="#password"
+                                label="Confirm Password"
+                                type="password"
+                                autoComplete="current-password"
+                                onChange={(e) => setC_password(e.target.value)}
+                                margin="dense"
+                            />
+                            <p></p>
+                        </div>
+                        <div className="button-signup">
+                            <Button variant="contained" size="large" label="Submit" type="submit">Sign Up</Button>
+                        </div>
                         <p></p>
-                    </div>
-                    <div className="button-signup">
-                        <Button variant="contained" size="large" label="Submit" type="submit">Sign Up</Button>
-                    </div>
-                    <p></p>
 
-                    <GoogleLoginButton onClick={() => signInWithGoogle()} />
+                        {/* <GoogleLoginButton onClick={() => signInWithGoogle()} /> */}
 
-                    <p className="forgot-password text-right">
-                        Already registered <Link className="tags" to={"/sign-in"}>Sign in</Link>
-                    </p>
-                </form>
-            </div>
-        </div>{/* <div className="slide-container">
+                        <p className="forgot-password text-right">
+                            Already registered <Link className="tags" to={"/sign-in"}>Sign in</Link>
+                        </p>
+                    </form>
+                </div>
+            </div>{/* <div className="slide-container">
                 {CarouselSlide()}
 
             </div> */}  </>

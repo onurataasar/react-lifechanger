@@ -12,7 +12,7 @@ import { useState } from "react";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// async Google Sign-in method by using the provider we have declared in FirebaseConfig.js. 
+/* // async Google Sign-in method by using the provider we have declared in FirebaseConfig.js. 
 //Google auth is an adventage that comes with firebase
 export const signInWithGoogle = async () => {
     try {
@@ -32,7 +32,7 @@ export const signInWithGoogle = async () => {
     catch (err) {
         alert(err.message);
     }
-};
+}; */
 
 export default function Login() {
 
@@ -88,8 +88,9 @@ export default function Login() {
                             />
 
                             <TextField
+                                required
                                 id="password"
-                                label="Password*"
+                                label="Password"
                                 type="password"
                                 autoComplete="current-password"
                                 margin="dense"
@@ -105,7 +106,7 @@ export default function Login() {
                         <p></p>
 
 
-                        <GoogleLoginButton onClick={() => signInWithGoogle()} />
+                        {/* <GoogleLoginButton onClick={() => signInWithGoogle()} /> */}
 
                         <p className="forgot-password text-right">
                             Don't have an account? <Link className="tags" to={"/sign-up"}>Sign Up</Link>

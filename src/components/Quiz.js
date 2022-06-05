@@ -64,13 +64,13 @@ export default function Quiz() {
                 work: work,
             }
             //we use update instead of set here
-            database_ref.child('users/' + user.uid).update(quiz_data);
+            database_ref.child('users/' + user.uid + '/initial').set(quiz_data);
 
             navigate('/dashboard')
 
         } catch (e) {
             setError(e.message)
-            console.log(e.message)
+            console.log(error)
         }
     }
     console.log(dob);
@@ -119,9 +119,9 @@ export default function Quiz() {
                                 name="radio-buttons-group"
                                 id="sleep"
                             >
-                                <FormControlLabel onChange={(e) => setSleep(e.target.value)} value="less" control={<Radio />} label="Less than 5 hours" />
-                                <FormControlLabel onChange={(e) => setSleep(e.target.value)} value="between" control={<Radio />} label="Between 5 hours. - 8 hours" />
-                                <FormControlLabel onChange={(e) => setSleep(e.target.value)} value="more" control={<Radio />} label="More than 8 hours" />
+                                <FormControlLabel onChange={(e) => setSleep(e.target.value)} value="0 - 4" control={<Radio />} label="Between 0 - 4 hours" />
+                                <FormControlLabel onChange={(e) => setSleep(e.target.value)} value="4 - 8" control={<Radio />} label="Between 4 - 8 hours" />
+                                <FormControlLabel onChange={(e) => setSleep(e.target.value)} value="8 - 12" control={<Radio />} label="Between 8 - 12 hours" />
                             </RadioGroup>
                         </FormControl>
 
@@ -138,9 +138,9 @@ export default function Quiz() {
                                 name="radio-buttons-group"
                                 id="water"
                             >
-                                <FormControlLabel onChange={(e) => setWater(e.target.value)} value="less" control={<Radio />} label="Less than 1 litre" />
-                                <FormControlLabel onChange={(e) => setWater(e.target.value)} value="between" control={<Radio />} label="Between 1 litre - 3 litres" />
-                                <FormControlLabel onChange={(e) => setWater(e.target.value)} value="more" control={<Radio />} label="More than 3 litres" />
+                                <FormControlLabel onChange={(e) => setWater(e.target.value)} value="0 - 2" control={<Radio />} label="Between 0 - 2 litres" />
+                                <FormControlLabel onChange={(e) => setWater(e.target.value)} value="2 - 3" control={<Radio />} label="Between 2 - 3 litres" />
+                                <FormControlLabel onChange={(e) => setWater(e.target.value)} value="3 - 5" control={<Radio />} label="Between 3 - 5 litres" />
                             </RadioGroup>
                         </FormControl>
 
@@ -157,9 +157,9 @@ export default function Quiz() {
                                 name="radio-buttons-group"
                                 id="steps"
                             >
-                                <FormControlLabel onChange={(e) => setSteps(e.target.value)} value="less" control={<Radio />} label="Less than 5000" />
-                                <FormControlLabel onChange={(e) => setSteps(e.target.value)} value="between" control={<Radio />} label="Between 5000 - 10000" />
-                                <FormControlLabel onChange={(e) => setSteps(e.target.value)} value="more" control={<Radio />} label="More than 10000" />
+                                <FormControlLabel onChange={(e) => setSteps(e.target.value)} value="0 - 5000" control={<Radio />} label="Between 0 - 5000 steps" />
+                                <FormControlLabel onChange={(e) => setSteps(e.target.value)} value="5000 - 10000" control={<Radio />} label="Between 5000 - 10000 steps" />
+                                <FormControlLabel onChange={(e) => setSteps(e.target.value)} value="10000 - 50000" control={<Radio />} label="Between 10000 - 50000 steps" />
                             </RadioGroup>
                         </FormControl>
 
@@ -176,9 +176,9 @@ export default function Quiz() {
                                 name="radio-buttons-group"
                                 id="work"
                             >
-                                <FormControlLabel onChange={(e) => setWork(e.target.value)} value="less" control={<Radio />} label="Less than 5 hours" />
-                                <FormControlLabel onChange={(e) => setWork(e.target.value)} value="between" control={<Radio />} label="Between 5 - 8 hours" />
-                                <FormControlLabel onChange={(e) => setWork(e.target.value)} value="more" control={<Radio />} label="More than 8 hours" />
+                                <FormControlLabel onChange={(e) => setWork(e.target.value)} value="0 - 4" control={<Radio />} label="Between 0 - 4 hours" />
+                                <FormControlLabel onChange={(e) => setWork(e.target.value)} value="4 - 8" control={<Radio />} label="Between 4 - 8 hours" />
+                                <FormControlLabel onChange={(e) => setWork(e.target.value)} value="8 - 12" control={<Radio />} label="Between 8 - 12 hours" />
                             </RadioGroup>
                         </FormControl>
 

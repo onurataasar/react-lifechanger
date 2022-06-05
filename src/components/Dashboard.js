@@ -32,10 +32,10 @@ export default function Dashboard() {
     });
     const [name, setName] = useState("");
     //function to check is the user is authorized for the page in console log 
-    console.log("User anonymous: " + firebase.auth().currentUser.isAnonymous)
+
     if (auth.currentUser) {
         let uid = firebase.auth().currentUser.uid;
-
+        console.log("User anonymous: " + firebase.auth().currentUser.isAnonymous)
         //with snapshot we can see the user's name from the database
         get(child(dbRef, `users/${uid}/name`)).then((snapshot) => {
 
@@ -198,7 +198,7 @@ export default function Dashboard() {
                                     <input
                                         type="radio" name="emotion"
                                         id="very-happy" class="input-hidden"
-                                        value="very happy"
+                                        value="Very Happy"
                                         onChange={(e) => setdMood(e.target.value)} />
                                     <label for="very-happy">
                                         <img
@@ -209,7 +209,7 @@ export default function Dashboard() {
                                     <input
                                         type="radio" name="emotion"
                                         id="happy" class="input-hidden"
-                                        value="happy"
+                                        value="Happy"
                                         onChange={(e) => setdMood(e.target.value)} />
                                     <label for="happy">
                                         <img
@@ -219,7 +219,7 @@ export default function Dashboard() {
                                     <input
                                         type="radio" name="emotion"
                                         id="neutral" class="input-hidden"
-                                        value="neutral"
+                                        value="Neutral"
                                         onChange={(e) => setdMood(e.target.value)} />
                                     <label for="neutral">
                                         <img
@@ -229,7 +229,7 @@ export default function Dashboard() {
                                     <input
                                         type="radio" name="emotion"
                                         id="bad" class="input-hidden"
-                                        value="bad"
+                                        value="Bad"
                                         onChange={(e) => setdMood(e.target.value)} />
                                     <label for="bad">
                                         <img
@@ -239,7 +239,7 @@ export default function Dashboard() {
                                     <input
                                         type="radio" name="emotion"
                                         id="very-bad" class="input-hidden"
-                                        value="very bad"
+                                        value="Very Bad"
                                         onChange={(e) => setdMood(e.target.value)} />
                                     <label for="very-bad">
                                         <img
@@ -262,7 +262,7 @@ export default function Dashboard() {
                         <VictoryAxis
                             dependentAxis
                             // tickFormat specifies how ticks should be displayed
-                            tickValues={["very bad", "bad", "neutral", "happy", "very happy"]}
+                            tickValues={["Very Bad", "Bad", "Neutral", "Happy", "Very Happy"]}
                             tickFormat={["BAD", "MEH", "OK", "GOOD", "BEST"]}
                         />
                         <VictoryBar

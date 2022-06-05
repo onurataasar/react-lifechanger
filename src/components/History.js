@@ -69,7 +69,7 @@ export default function History() {
                 }).catch((error) => {
                     console.error(error);
                 });
-            firebase.database().ref('users').child(uid).get()
+            firebase.database().ref('users').child(uid).child('initial').get()
                 .then((snapshot) => {
                     if (snapshot.exists()) {
                         setInitial_water(snapshot.val().water);
@@ -87,7 +87,7 @@ export default function History() {
             firebase.database().ref('users').child(uid).child("date").child(ch_date).get()
                 .then((snapshot) => {
 
-                    if (ch_date == null || snapshot.val() == null) {
+                    if (ch_date == null || ch_date == "" || snapshot.val() == null) {
                         setDate("No Data Available")
                         setDate_mood("No Data Available")
                         setDate_sleep("No Data Available")
@@ -132,27 +132,64 @@ export default function History() {
                         bgcolor: "#FCFCFC"
 
                     }}> <div style={{ textAlign: "center" }}>
-                            <h4 >Choose Date</h4>
+                            <h2 >Choose Date</h2>
                             <hr></hr>
-                            <FormControl sx={{ m: 1, minWidth: 200 }}>
+                            <FormControl sx={{ m: 1, minWidth: 350 }}>
                                 <TextField
                                     id="outlined-date"
                                     label="Search History"
                                     type="text"
                                     placeholder={today}
                                     onChange={e => setCh_date(e.target.value)}
-
-
                                 >
 
                                 </TextField>
-                                <Button color="secondary" size="small" onClick={submitDate}><SearchRounded /></Button>
+                                {/*  <Button color="secondary" size="small" onClick={submitDate}><SearchRounded /></Button> */}
                             </FormControl>
-                            <h4>Mood: {date_mood}</h4>
-                            <h4>Water: {date_water}</h4>
-                            <h4>Sleep: {date_sleep}</h4>
-                            <h4>Steps: {date_steps}</h4>
-                            <h4>Work: {date_work}</h4>
+
+                            <img
+                                src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/face-without-mouth_1f636.png"
+                                alt="Mood"
+                                width="50"
+                                height="50" />
+                            <p></p>
+                            <h5>Mood: {date_mood} </h5>
+
+                            <hr></hr>
+                            <img
+                                src="https://www.svgrepo.com/show/21036/water.svg"
+                                alt="Water"
+                                width="50"
+                                height="50" />
+                            <p></p>
+                            <h5>Water: {date_water} </h5>
+                            <p></p>
+                            <hr></hr>
+                            <img
+                                src="https://www.svgrepo.com/show/43206/bed.svg"
+                                alt="Sleep"
+                                width="50"
+                                height="50" />
+                            <p></p>
+                            <h5>Sleep: {date_sleep} </h5>
+                            <p></p>
+                            <hr></hr>
+                            <img
+                                src="https://www.svgrepo.com/show/251868/hiker-walk.svg"
+                                alt="Sleep"
+                                width="50"
+                                height="50" />
+                            <p></p>
+                            <h5>Steps: {date_steps} </h5>
+                            <p></p>
+                            <hr></hr>
+                            <img
+                                src="https://www.svgrepo.com/show/213533/studying-work.svg"
+                                alt="Sleep"
+                                width="50"
+                                height="50" />
+                            <p></p>
+                            <h5>Work Hours: {date_work} </h5>
                         </div>
                     </Box>
                     <Box display='table' sx={{
@@ -162,17 +199,51 @@ export default function History() {
                         bgcolor: "#FCFCFC"
 
                     }}> <div style={{ textAlign: "center" }}>
-                            <h4>Today</h4>
+                            <h2>Today</h2>
                             <hr></hr>
-                            Daily Mood: {today_mood}
+                            <img
+                                src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/face-without-mouth_1f636.png"
+                                alt="Mood"
+                                width="50"
+                                height="50" />
                             <p></p>
-                            Water: {today_water}
+                            <h5>Mood: {today_mood} </h5>
                             <p></p>
-                            Sleep: {today_sleep}
+                            <hr></hr>
+                            <img
+                                src="https://www.svgrepo.com/show/21036/water.svg"
+                                alt="Water"
+                                width="50"
+                                height="50" />
                             <p></p>
-                            Steps: {today_steps}
+                            <h5>Water: {today_water} </h5>
                             <p></p>
-                            Work Hours: {today_work}
+                            <hr></hr>
+                            <img
+                                src="https://www.svgrepo.com/show/43206/bed.svg"
+                                alt="Sleep"
+                                width="50"
+                                height="50" />
+                            <p></p>
+                            <h5>Sleep: {today_sleep} </h5>
+                            <p></p>
+                            <hr></hr>
+                            <img
+                                src="https://www.svgrepo.com/show/251868/hiker-walk.svg"
+                                alt="Sleep"
+                                width="50"
+                                height="50" />
+                            <p></p>
+                            <h5>Steps: {today_steps} </h5>
+                            <p></p>
+                            <hr></hr>
+                            <img
+                                src="https://www.svgrepo.com/show/213533/studying-work.svg"
+                                alt="Sleep"
+                                width="50"
+                                height="50" />
+                            <p></p>
+                            <h5>Work Hours: {today_work} </h5>
                         </div>
                     </Box>
                     <Box display='table' sx={{
@@ -183,18 +254,18 @@ export default function History() {
 
                     }}>
                         <div style={{ textAlign: "center" }}>
-                            <h4>Initial</h4>
+                            <h2>Initial</h2>
                             <hr></hr>
 
                             <h6>Before you start using LifeChanger, you were...</h6>
                             <p></p>
-                            Drinking water {initial_water} than 3 litres
+                            Drinking water between {initial_water} litres
                             <p></p>
-                            Getting sleep {initial_sleep} 5 - 8 hours
+                            Getting sleep between {initial_sleep} hours
                             <p></p>
-                            Taking steps {initial_steps} more than 10.000
+                            Taking steps between {initial_steps}
                             <p></p>
-                            Working {initial_work} than 8 hours
+                            Working between {initial_work} hours
                             <p></p>
                         </div>
 

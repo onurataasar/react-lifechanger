@@ -53,7 +53,7 @@ export default function Profile() {
                 }
             })
 
-            get(child(dbRef, `users/${uid}/dob`)).then((snapshot) => {
+            get(child(dbRef, `users/${uid}/initial/dob`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     setDob(snapshot.val());
                     console.log(snapshot.val());
