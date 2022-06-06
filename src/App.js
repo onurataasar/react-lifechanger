@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './components/Profile';
 import History from './components/History';
 import Goals from './components/Goals';
+import Diary from './components/Diary';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/goals" element={<ProtectedRoute><Goals /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
+          <Route path="/diary" element={<ProtectedRoute><Diary /></ProtectedRoute>} />
 
 
         </Routes>

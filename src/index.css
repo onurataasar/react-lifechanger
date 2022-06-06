@@ -47,7 +47,7 @@ body, html, .App, #root, .auth-wrapper {
    margin-left: auto;
    margin-right: auto;
    width: 30%;
-  transform: translate(300px,10px);
+  transform: translate(350px,20px);
   color: rgb(73, 83, 95);
   display: table;
 }
@@ -57,8 +57,8 @@ body, html, .App, #root, .auth-wrapper {
   
 }
 .image{
-  margin-top: -500px;
-  margin-left: 300px;
+  margin-top: -480px;
+  margin-left: 100px;
 }
 
 .footer {

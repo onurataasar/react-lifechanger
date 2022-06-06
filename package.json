@@ -20,6 +20,7 @@
     "material-icons": "^1.9.1",
     "material-ui-icons": "^1.0.0-beta.36",
     "meteor-auth": "^0.2.0",
+    "moment": "^2.29.3",
     "rc-footer": "^0.6.6",
     "react": "^17.0.2",
     "react-auth-context": "0.0.2",
@@ -65,6 +66,8 @@
     ]
   },
   "devDependencies": {
+    "prettier": "^2.6.2",
+    "prettier-airbnb-config": "^1.0.0",
     "tailwindcss": "^3.0.23"
   }
 }

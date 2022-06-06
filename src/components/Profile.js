@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import Navbar from './Navbar'
 import { Button, Typography } from '@mui/material';
 import { getDatabase, ref, child, get, push, onValue } from "firebase/database";
@@ -27,46 +27,48 @@ export default function Profile() {
     const [surname, setsName] = useState("");
     const [dob, setDob] = useState();
 
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            var uid = firebase.auth().currentUser.uid
-            console.log("User anonymous: " + firebase.auth().currentUser.isAnonymous)
-            get(child(dbRef, `users/${uid}/name`)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    setName(snapshot.val());
-                    console.log(snapshot.val());
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const uid = firebase.auth().currentUser.uid
+                get(child(dbRef, `users/${uid}/name`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        setName(snapshot.val());
+                        console.log(snapshot.val());
 
-                } else {
-                    console.log("No data available");
-                }
-            }).catch((error) => {
-                console.error(error);
-            });
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
 
-            get(child(dbRef, `users/${uid}/surname`)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    setsName(snapshot.val());
-                    console.log(snapshot.val());
+                get(child(dbRef, `users/${uid}/surname`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        setsName(snapshot.val());
+                        console.log(snapshot.val());
 
-                } else {
-                    console.log("No data available");
-                }
-            })
+                    } else {
+                        console.log("No data available");
+                    }
+                })
 
-            get(child(dbRef, `users/${uid}/initial/dob`)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    setDob(snapshot.val());
-                    console.log(snapshot.val());
-                } else {
-                    console.log("No data available");
-                }
-            })
-        }
-    });
+                get(child(dbRef, `users/${uid}/initial/dob`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        setDob(snapshot.val());
+                        console.log(snapshot.val());
+                    } else {
+                        console.log("No data available");
+                    }
+                })
+            }
+        });
+    }, [])
+
     const email = firebase.auth().currentUser.email
 
-    var currentTime = new Date();
-    var year = currentTime.getFullYear();
+    const currentTime = new Date();
+    const year = currentTime.getFullYear();
     const navigate = useNavigate();
     const options = {
         closeOnOverlayClick: true,
@@ -80,8 +82,8 @@ export default function Profile() {
         if (result) {
             try {
 
-                var user = auth.currentUser;
-                var database_ref = db.ref();
+                const user = auth.currentUser;
+                const database_ref = db.ref();
                 user.delete();
                 //deleting the user to users database with firebase ref
                 database_ref.child('users/' + user.uid).remove()

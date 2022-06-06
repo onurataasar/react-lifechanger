@@ -7,11 +7,11 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import FlagCircleIcon from '@mui/icons-material/FlagCircle';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Quiz, QuizRounded, Restore, Route, Settings, Dashboard, DashboardRounded } from '@mui/icons-material';
-import { Link, D } from 'react-router-dom';
+import { Restore, DashboardRounded } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
 
@@ -40,7 +40,7 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
 
                 <ListItem button component={Link} to="/goals">
                     <ListItemIcon>
-                        <QuizRounded />
+                        <FlagCircleIcon />
                     </ListItemIcon>
                     <ListItemText>Goals</ListItemText>
                 </ListItem>
@@ -50,6 +50,12 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer }) {
                         <Restore />
                     </ListItemIcon>
                     <ListItemText>History</ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/diary">
+                    <ListItemIcon>
+                        <BorderColorIcon />
+                    </ListItemIcon>
+                    <ListItemText>Diary</ListItemText>
                 </ListItem>
 
 
